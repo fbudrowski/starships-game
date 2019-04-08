@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Crazy Spaceships</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/clear_browser.css">
+</head>
+
+<body>
+    <div class="header-area">
+        <header class="header">
+            <nav class="navbar">
+                <!-- <ul class="navbar-list"> -->
+                    <div class="header-left header-item">
+                        <button class="header-left-button">
+                            Game
+                        </button>
+                    </div>
+                    <div class="header-left header-item">
+                        <button class="header-left-button starships-button" onclick="toggleStarshipsWindow()">
+                            <i class="fas fa-rocket"></i> Starships
+                        </button>
+                    </div>
+                    <div class="header-left header-item">
+                        <button class="header-left-button planets-button" onclick="togglePlanetsWindow()">
+                            <i class="fas fa-globe"></i> Planets
+                        </button>
+                    </div>
+                    <div class="header-left header-item">
+                        <button class="header-left-button items-button" onclick="toggleItemsWindow()">
+                            <i class="fas fa-boxes"></i> Items
+                        </button>
+                    </div>
+                    <div class="header-right header-item">
+                        <button class="header-right-button items-button" id="nickname-button">
+                            Your nickname
+                        </button>
+                    </div>
+
+
+                    <div class="header-right header-item">
+                        <button class="header-right-button items-button">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="header-right-button items-button">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="header-right-button items-button">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                        <button class="header-right-button items-button">
+                            <i class="fas fa-fast-forward"></i>
+                        </button>
+                    </div>
+
+                    <div class="header-right header-item">
+                        <button class="header-right-button items-button">
+                            <i class="far fa-clock"></i> 423 / 1000
+                        </button>
+                    </div>
+
+                    <div class="header-right header-item">
+                        <button class="header-right-button items-button">
+                            ¢4321
+                        </button>
+                    </div>
+                <!-- </ul> -->
+            </nav>
+        </header>
+    </div>
+    <div class="change-window" id="starships-window">
+        <iframe src="starships.html" class="change-frame" id="starships-frame"></iframe>
+    </div>
+    <div class="change-window" id="planets-window">
+        <iframe src="planets.html" class="change-frame" id="planets-frame"></iframe>
+    </div>
+    <div class="change-window" id="items-window">
+        <iframe src="items.html" class="change-frame" id="items-frame"></iframe>
+    </div>
+    <div class="change-window" id="traveling-starship-window">
+        <iframe src="traveling_starship.html" class="change-frame" id="traveling-starship-frame"></iframe>
+    </div>
+    <div class="change-window" id="one-planet-window">
+        <iframe src="one_planet.html" class="change-frame" id="traveling-starship-frame"></iframe>
+    </div>
+    
+
+
+    <div class="main-map">
+        <canvas id="map"></canvas>
+    </div>
+
+    <div class="minimap">
+        <!-- XD -->
+        <iframe src="minimap.html" class="minimap-frame"></iframe>
+    </div>
+
+
+    <div class="enter-nickname overlay" id="enter-nickname-overlay">
+        <div class="overlay-pseudoform" id="enter-nickname-pseudoform">
+            <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem">
+                <p>Enter your nickname:</p>
+            </div>
+            <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem">
+                <p>
+                    <input type="text" class="input-field" id="enter-nickname-field">
+                </p>
+            </div>
+            <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem">
+                <p>
+                    <button class="action-button" id="submitNicknameButton" onclick="submitNickname()">Submit
+                        nickname</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="ts/main.js"></script>
+    <script src="ts/enterNickname.js"></script>
+    <script src="ts/spaceshipsViews.js"></script>
+    <script src="ts/planetsViews.js"></script>
+    <script src="ts/itemsViews.js"></script>
+
+</body>
+
+</html>

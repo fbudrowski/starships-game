@@ -1,0 +1,230 @@
+*{
+    --main-bg-color: #2D066D;
+    --main-fg-color: #FFFADE;
+    --secondary-fg-color:#00C9A9;
+    --tertiary-fg-color: #D0AEF8;
+    --secondary-bg-color: black;
+    font-family: Play, sans-serif;
+}
+
+
+body{
+    font-family: Play, sans-serif;
+    background-color:var(--main-bg-color);
+}
+
+.header-area, button{
+    font-family: Play, sans-serif;
+    font-size: 1.3rem;
+}
+.header{
+    position: absolute;
+    background-color:var(--secondary-bg-color);
+    color: var(--main-fg-color);
+    padding: 1% 0 1% 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    clear: both;
+}
+.header-item{
+    margin-right: 1%;
+    margin-left: 1%;    
+}
+
+.header-left{
+    float: left;
+    color: var(--main-fg-color);
+    top: 0;
+}
+.header-item > button{
+    color: var(--main-fg-color);
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header-right{
+    float: right;
+    color: var(--main-fg-color);
+}
+.main-map{
+    position: relative;
+    width: 100%;
+    height: 99vh;
+    margin:0;
+    padding:0; 
+    z-index: -1;
+
+}
+
+
+#map{
+    /* z-index: 500; */
+    width: 100%;
+    height: 99vh;
+    margin:0; 
+    padding:0; 
+    background-color: white;
+}
+
+.minimap{
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+    /* border-radius: 10%; */
+    border: 0px solid yellow;
+    padding: 0px 0px 0px 0px;
+    overflow: visible;
+}
+.minimap-frame{
+    border: 0px solid brown;
+    padding: 0px 0px 0px 0px;
+    margin: 0 0 0 0;
+    height: 260px;
+    width: 260px;
+    overflow: visible;
+}
+
+.minimap-image-rounded > img{
+    border: black solid 30px;
+    padding: 0px 0px 0px 0px;
+    border-radius: 10px;
+}
+
+.change-window{
+    position: absolute;
+    display: none;
+    width: 75%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    z-index: 100;
+}
+
+.change-frame{
+    position: relative;
+    width: 75%;
+    height: 80%;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+
+
+
+.enter-nickname{
+    position: fixed; /* Sit on top of the page content */
+    display: block; 
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+
+.overlay{
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    font-size: 3rem;
+    font-family: Play, sans-serif;
+    color: var(--main-fg-color);
+}
+
+.overlay{
+    font-size: 1.6rem;
+    font-family: Play, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.overlay-pseudoform{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: var(--main-fg-color) ;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#enter-nickname-field{
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+div.enter-nickname-pseudoform-elem{
+    flex-grow: 1;
+}
+
+.data-table-container{
+
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+
+}
+
+table.data-table{
+    color: var(--main-fg-color);
+    border-collapse: separate;
+}
+
+tr.multiline-data-table-entry, tr.multiline-data-table-entry > td{
+    color: var(--main-fg-color);
+    background-color: var(--secondary-bg-color);
+    padding: 5px 30px 5px 30px;  
+    line-height: 2em;
+    font-family: Play, sans-serif;
+    font-size: 1em;  
+}
+tr.multiline-data-table-entry-start td:first-child { 
+    border-top-left-radius: 20px;
+}
+tr.multiline-data-table-entry-start td:last-child { 
+    border-top-right-radius: 20px; 
+}
+tr.multiline-data-table-entry-end td:first-child { 
+    border-bottom-left-radius: 20px;
+}
+tr.multiline-data-table-entry-end td:last-child { 
+    border-bottom-right-radius: 20px; 
+}
+tr.multiline-data-table-entry-end, tr.multiline-data-table-entry-end > td{
+    border-bottom: 5px solid var(--main-fg-color);  
+}
+
+
+
+tr.data-table-entry, tr.data-table-entry > td{
+    color: var(--main-fg-color);
+    background-color: var(--secondary-bg-color);
+    padding: 5px 30px 5px 30px;  
+    line-height: 2em;
+    font-family: Play, sans-serif;
+    font-size: 1em;  
+    border-bottom: 5px solid var(--main-fg-color);  
+}
+tr.data-table-entry td:first-child { 
+    border-top-left-radius: 20px; 
+    border-bottom-left-radius: 20px;
+}
+tr.data-table-entry td:last-child { 
+    border-top-right-radius: 20px; 
+    border-bottom-right-radius: 20px;
+}
