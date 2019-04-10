@@ -47,15 +47,38 @@ function generateGameHtml(gameData) {
     setCurrentTurn(0);
     setCredits(gameData["initial_credits"]);
 }
+function addTableRow(frameDocument, tableBody, tableRowHtml, classes) {
+    var newElement = frameDocument.createElement("tr");
+    newElement.className = classes;
+    newElement.innerHTML = tableRowHtml;
+    tableBody.appendChild(newElement);
+}
 function generateItemsHtml(gameData) {
     var frameDocument = document.getElementById("items-frame").contentDocument;
     var tableBody = frameDocument.getElementById("items-table-body");
     tableBody.innerHTML = " ";
+    var classes = "items-table-entry data-table-entry";
     for (var index in gameData["items"]) {
-        var newElement = frameDocument.createElement("tr");
         var oneBasedIndex = Number(index) + 1;
-        newElement.className = "items-table-entry data-table-entry";
-        newElement.innerHTML = "\n        <td><i class=\"fas fa-boxes\"></i> " + oneBasedIndex + "</td>\n        <td>" + gameData["items"][index] + "</td>\n        ";
-        tableBody.appendChild(newElement);
+        var tableRow = "\n        <td><i class=\"fas fa-boxes\"></i> " + oneBasedIndex + "</td>\n        <td>" + gameData["items"][index] + "</td>\n        ";
+        addTableRow(frameDocument, tableBody, tableRow, classes);
+    }
+}
+function generateStarshipsHtml(gameData) {
+    var frameDocument = document.getElementById("starships-frame").contentDocument;
+    var tableBody = frameDocument.getElementById("starships-table-body");
+    var classes = "items-table-entry data-table-entry";
+    alert(frameDocument);
+    alert(tableBody);
+    tableBody.innerHTML = " ";
+    var oneBasedIndex = 1;
+    for (var starship in gameData["starships"]) {
+        alert("Kurwa " + starship + ";; ");
+        var position = gameData["starships"][starship].position;
+        var coords = "(" + gameData["planets"]["position"].x + ", " + gameData["planets"]["position"].y + ")";
+        var capacity = gameData["starships"][starship]["cargo_hold_size"];
+        var tableRow = "\n        <td><i class=\"fas fa-rocket\"></i> " + oneBasedIndex + "</td>\n        <td>" + starship + "</td>\n        <td>&darr; " + position + "</td>\n        <td>&darr; " + coords + "</td>\n        <td>0/" + capacity + "</td>\n        ";
+        addTableRow(frameDocument, tableBody, tableRow, classes);
+        oneBasedIndex++;
     }
 }

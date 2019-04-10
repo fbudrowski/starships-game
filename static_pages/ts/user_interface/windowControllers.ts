@@ -50,20 +50,48 @@ function generateGameHtml(gameData){
     setCredits(gameData["initial_credits"]);
 }
 
+function addTableRow(frameDocument, tableBody, tableRowHtml, classes){
+    let newElement = frameDocument.createElement("tr");
+    newElement.className = classes;
+    newElement.innerHTML = tableRowHtml;
+    tableBody.appendChild(newElement);
+}
+
 function generateItemsHtml(gameData){
     let frameDocument = (<HTMLFrameElement>document.getElementById("items-frame")).contentDocument;
     let tableBody = frameDocument.getElementById("items-table-body");
     tableBody.innerHTML = " ";
+    let classes = "items-table-entry data-table-entry";
     
     for(let index in gameData["items"]){
-        let newElement = frameDocument.createElement("tr");
         let oneBasedIndex : number = Number(index) + 1;
-        newElement.className = "items-table-entry data-table-entry";
-        newElement.innerHTML = `
+        let tableRow = `
         <td><i class="fas fa-boxes"></i> ${oneBasedIndex}</td>
         <td>${gameData["items"][index]}</td>
-        `
-        tableBody.appendChild(newElement);
+        `;
+        addTableRow(frameDocument, tableBody, tableRow, classes);
+    }
+}
+
+function generateStarshipsHtml(gameData){
+    let frameDocument = (<HTMLFrameElement>document.getElementById("starships-frame")).contentDocument;
+    let tableBody = frameDocument.getElementById("starships-table-body");
+    let classes = "items-table-entry data-table-entry";
+    tableBody.innerHTML = " ";
+    let oneBasedIndex = 1;
+    for(let starship in gameData["starships"]){
+        let position = gameData["starships"][starship].position;
+        let coords = `(${gameData["planets"]["position"].x}, ${gameData["planets"]["position"].y})`
+        let capacity = gameData["starships"][starship]["cargo_hold_size"];
+        let tableRow = `
+        <td><i class="fas fa-rocket"></i> ${oneBasedIndex}</td>
+        <td>${starship}</td>
+        <td>&darr; ${position}</td>
+        <td>&darr; ${coords}</td>
+        <td>0/${capacity}</td>
+        `;
+        addTableRow(frameDocument, tableBody, tableRow, classes);
+        oneBasedIndex++;
     }
 }
 

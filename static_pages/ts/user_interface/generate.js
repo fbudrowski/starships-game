@@ -2,3 +2,4 @@ var initialStateString = "{\n    \"items\": [\n        \"Nuka-Cola\",\n        \
 var initialState = JSON.parse(initialStateString);
 generateGameHtml(initialState);
 generateItemsHtml(initialState);
+generateStarshipsHtml(initialState);

@@ -36,3 +36,4 @@ let initialStateString = `{
 let initialState = JSON.parse(initialStateString);
 generateGameHtml(initialState);
 generateItemsHtml(initialState);
+generateStarshipsHtml(initialState);
