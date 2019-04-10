@@ -47,10 +47,13 @@ function generateGameHtml(gameData) {
     setCurrentTurn(0);
     setCredits(gameData["initial_credits"]);
 }
-function addTableRow(frameDocument, tableBody, tableRowHtml, classes) {
+function addTableRow(frameDocument, tableBody, tableRowHtml, classes, onClick) {
+    if (onClick === void 0) { onClick = function () { }; }
     var newElement = frameDocument.createElement("tr");
     newElement.className = classes;
     newElement.innerHTML = tableRowHtml;
+    newElement.onclick = onClick;
+    // alert(newElement.onClick);
     tableBody.appendChild(newElement);
 }
 function generateItemsHtml(gameData) {
@@ -67,18 +70,19 @@ function generateItemsHtml(gameData) {
 function generateStarshipsHtml(gameData) {
     var frameDocument = document.getElementById("starships-frame").contentDocument;
     var tableBody = frameDocument.getElementById("starships-table-body");
-    var classes = "items-table-entry data-table-entry";
-    alert(frameDocument);
-    alert(tableBody);
+    var classes = "starships-table-entry data-table-entry";
     tableBody.innerHTML = " ";
     var oneBasedIndex = 1;
-    for (var starship in gameData["starships"]) {
-        alert("Kurwa " + starship + ";; ");
+    var _loop_1 = function (starship) {
         var position = gameData["starships"][starship].position;
-        var coords = "(" + gameData["planets"]["position"].x + ", " + gameData["planets"]["position"].y + ")";
+        var coords = "(" + gameData["planets"][position].x + ", " + gameData["planets"][position].y + ")";
         var capacity = gameData["starships"][starship]["cargo_hold_size"];
-        var tableRow = "\n        <td><i class=\"fas fa-rocket\"></i> " + oneBasedIndex + "</td>\n        <td>" + starship + "</td>\n        <td>&darr; " + position + "</td>\n        <td>&darr; " + coords + "</td>\n        <td>0/" + capacity + "</td>\n        ";
-        addTableRow(frameDocument, tableBody, tableRow, classes);
+        var onClick = function () { onClickStarship(starship); };
+        var tableRow = "\n        <td><i class=\"fas fa-rocket\"></i> " + oneBasedIndex + "</td>\n        <td>" + starship + "</td>\n        <td>&darr; " + position + "</td>\n        <td>" + coords + "</td>\n        <td>0/" + capacity + "</td>\n        ";
+        addTableRow(frameDocument, tableBody, tableRow, classes, onClick);
         oneBasedIndex++;
+    };
+    for (var starship in gameData["starships"]) {
+        _loop_1(starship);
     }
 }
