@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Items</title>
+    <title>Starships</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/clear_browser.css">
 </head>
+
 <body>
-    
+    <div class="data-table-container">
+
+        <table class="data-table" id="items-table">
+            <tbody id="items-table-body">
+                <tr class="items-table-entry data-table-entry">
+                    <td><i class="fas fa-boxes"></i>1</td>
+                    <td>Nip-Coke</td>
+                </tr>
+                <tr class="items-table-entry data-table-entry">
+                        <td><i class="fas fa-boxes"></i>2</td>
+                        <td>Sandacz</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <script src="ts/main.js"></script>
+    <script src="ts/enterNickname.js"></script>
+    <script src="ts/spaceshipsViews.js"></script>
+    <script src="ts/planetsViews.js"></script>
+    <script src="ts/itemsViews.js"></script>
 </body>
+
 </html>
