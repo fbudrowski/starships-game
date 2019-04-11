@@ -228,3 +228,7 @@ tr.data-table-entry td:last-child {
     border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px;
 }
+
+.bold{
+    font-weight: bolder;
+}

@@ -86,3 +86,46 @@ function generateStarshipsHtml(gameData) {
         _loop_1(starship);
     }
 }
+function generatePlanetsHtml(gameData) {
+    var frameDocument = document.getElementById("planets-frame").contentDocument;
+    var tableBody = frameDocument.getElementById("planets-table-body");
+    var classes = "planets-table-entry data-table-entry";
+    tableBody.innerHTML = " ";
+    var oneBasedIndex = 1;
+    for (var planet in gameData["planets"]) {
+        var coords = "(" + gameData["planets"][planet].x + ", " + gameData["planets"][planet].y + ")";
+        var onClick = function () { };
+        var ships = "<i class=\"fas fa-rocket\"></i>";
+        var starships = "";
+        var starshipCount = 0;
+        for (var starship in gameData["starships"]) {
+            if (gameData["starships"][starship].position === planet) {
+                if (starships !== "")
+                    starships += ", ";
+                starships += starship;
+                starshipCount++;
+            }
+        }
+        ships += " " + starshipCount;
+        ships += " " + starships;
+        var tableRow = "\n        <td><i class=\"fas fa-planet\"></i> " + oneBasedIndex + "</td>\n        <td class=\"bold\">" + planet + "</td>\n        <td>" + coords + "</td>\n        <td colspan=\"3\">" + ships + "</td>\n        ";
+        var classes_1 = "multiline-data-table-entry multiline-data-table-entry-start";
+        addTableRow(frameDocument, tableBody, tableRow, classes_1, onClick);
+        oneBasedIndex++;
+        var availableItems = gameData["planets"][planet]["available_items"];
+        var count = Object.keys(availableItems).length;
+        for (var item in availableItems) {
+            var unitsAvailable = availableItems[item]["available"];
+            var buy = availableItems[item]["buy_price"];
+            var sell = availableItems[item]["sell_price"];
+            count--;
+            if (count === 0)
+                classes_1 = "multiline-data-table-entry multiline-data-table-entry-end";
+            else
+                classes_1 = "multiline-data-table-entry";
+            var rocket_count = 0;
+            var tableRow_1 = "<td></td>\n            <td>" + item + "</td>\n            <td><i class=\"fas fa-globe\"></i> " + unitsAvailable + "</td>\n            <td>\u00A2" + sell + "</td>\n            <td>\u00A2" + buy + "</td>\n            <td><i class=\"fas fa-rocket\"></i> " + rocket_count + "</td>";
+            addTableRow(frameDocument, tableBody, tableRow_1, classes_1, onClick);
+        }
+    }
+}

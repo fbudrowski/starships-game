@@ -3,3 +3,4 @@ var initialState = JSON.parse(initialStateString);
 generateGameHtml(initialState);
 generateItemsHtml(initialState);
 generateStarshipsHtml(initialState);
+generatePlanetsHtml(initialState);
