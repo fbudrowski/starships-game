@@ -63,7 +63,7 @@ function generateItemsHtml(gameData) {
     var classes = "items-table-entry data-table-entry";
     for (var index in gameData["items"]) {
         var oneBasedIndex = Number(index) + 1;
-        var tableRow = "\n        <td><i class=\"fas fa-boxes\"></i> " + oneBasedIndex + "</td>\n        <td>" + gameData["items"][index] + "</td>\n        ";
+        var tableRow = "\n        <td class=\"order-column\"><i class=\"fas fa-boxes\"></i> " + oneBasedIndex + "</td>\n        <td class=\"name-column\">" + gameData["items"][index] + "</td>\n        ";
         addTableRow(frameDocument, tableBody, tableRow, classes);
     }
 }
@@ -78,7 +78,7 @@ function generateStarshipsHtml(gameData) {
         var coords = "(" + gameData["planets"][position].x + ", " + gameData["planets"][position].y + ")";
         var capacity = gameData["starships"][starship]["cargo_hold_size"];
         var onClick = function () { onClickStarship(starship); };
-        var tableRow = "\n        <td><i class=\"fas fa-rocket\"></i> " + oneBasedIndex + "</td>\n        <td>" + starship + "</td>\n        <td>&darr; " + position + "</td>\n        <td>" + coords + "</td>\n        <td>0/" + capacity + "</td>\n        ";
+        var tableRow = "\n        <td class=\"order-column\"><i class=\"fas fa-rocket\"></i> " + oneBasedIndex + "</td>\n        <td class=\"name-column\">" + starship + "</td>\n        <td class=\"name-column\">&darr; " + position + "</td>\n        <td class=\"coord-column\">" + coords + "</td>\n        <td class=\"capacity-column\">0/" + capacity + "</td>\n        ";
         addTableRow(frameDocument, tableBody, tableRow, classes, onClick);
         oneBasedIndex++;
     };
@@ -107,8 +107,8 @@ function generatePlanetsHtml(gameData) {
             }
         }
         ships += " " + starshipCount;
-        ships += " " + starships;
-        var tableRow = "\n        <td><i class=\"fas fa-planet\"></i> " + oneBasedIndex + "</td>\n        <td class=\"bold\">" + planet + "</td>\n        <td>" + coords + "</td>\n        <td colspan=\"3\">" + ships + "</td>\n        ";
+        ships += ": " + starships;
+        var tableRow = "\n        <td class=\"order-column\"><i class=\"fas fa-planet\"></i> " + oneBasedIndex + "</td>\n        <td class=\"name-column bold\">" + planet + "</td>\n        <td class=\"resources-column\">" + coords + "</td>\n        <td colspan=\"3\">" + ships + "</td>\n        ";
         var classes_1 = "multiline-data-table-entry multiline-data-table-entry-start";
         addTableRow(frameDocument, tableBody, tableRow, classes_1, onClick);
         oneBasedIndex++;
@@ -124,7 +124,7 @@ function generatePlanetsHtml(gameData) {
             else
                 classes_1 = "multiline-data-table-entry";
             var rocket_count = 0;
-            var tableRow_1 = "<td></td>\n            <td>" + item + "</td>\n            <td><i class=\"fas fa-globe\"></i> " + unitsAvailable + "</td>\n            <td>\u00A2" + sell + "</td>\n            <td>\u00A2" + buy + "</td>\n            <td><i class=\"fas fa-rocket\"></i> " + rocket_count + "</td>";
+            var tableRow_1 = "<td class=\"order-column\"></td>\n            <td class=\"name-column\">" + item + "</td>\n            <td class=\"resources-column\"><i class=\"fas fa-globe\"></i> " + unitsAvailable + "</td>\n            <td>\u00A2" + sell + "</td>\n            <td>\u00A2" + buy + "</td>\n            <td class=\"resources-column\"><i class=\"fas fa-rocket\"></i> " + rocket_count + "</td>";
             addTableRow(frameDocument, tableBody, tableRow_1, classes_1, onClick);
         }
     }

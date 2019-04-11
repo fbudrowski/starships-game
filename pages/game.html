@@ -16,69 +16,70 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/clear_browser.css">
 </head>
 
-<body>
+<body id="main-body">
     <div class="header-area">
         <header class="header">
             <nav class="navbar">
                 <!-- <ul class="navbar-list"> -->
-                    <div class="header-left header-item">
-                        <button class="header-left-button bold">
-                            Space Dealer
-                        </button>
-                    </div>
-                    <div class="header-left header-item">
-                        <button class="header-left-button">
-                            Game
-                        </button>
-                    </div>
-                    <div class="header-left header-item">
-                        <button class="header-left-button starships-button" onclick="toggleStarshipsWindow()">
-                            <i class="fas fa-rocket"></i> Starships
-                        </button>
-                    </div>
-                    <div class="header-left header-item">
-                        <button class="header-left-button planets-button" onclick="togglePlanetsWindow()">
-                            <i class="fas fa-globe"></i> Planets
-                        </button>
-                    </div>
-                    <div class="header-left header-item">
-                        <button class="header-left-button items-button" onclick="toggleItemsWindow()">
-                            <i class="fas fa-boxes"></i> Items
-                        </button>
-                    </div>
-                    <div class="header-right header-item">
-                        <button class="header-right-button items-button" id="nickname-button">
-                            Your nickname
-                        </button>
-                    </div>
+                <div class="header-left header-item">
+                    <button class="header-left-button bold">
+                        Space Dealer
+                    </button>
+                </div>
+                <div class="header-left header-item">
+                    <button class="header-left-button">
+                        Game
+                    </button>
+                </div>
+                <div class="header-left header-item">
+                    <button class="header-left-button starships-button" onclick="toggleStarshipsWindow()">
+                        <i class="fas fa-rocket"></i> Starships
+                    </button>
+                </div>
+                <div class="header-left header-item">
+                    <button class="header-left-button planets-button" onclick="togglePlanetsWindow()">
+                        <i class="fas fa-globe"></i> Planets
+                    </button>
+                </div>
+                <div class="header-left header-item">
+                    <button class="header-left-button items-button" onclick="toggleItemsWindow()">
+                        <i class="fas fa-boxes"></i> Items
+                    </button>
+                </div>
+                <div class="header-right header-item">
+                    <button class="header-right-button items-button" id="nickname-button">
+                        Your nickname
+                    </button>
+                </div>
 
 
-                    <div class="header-right header-item">
-                        <button class="header-right-button items-button">
-                            <i class="fas fa-pause"></i>
-                        </button>
-                        <button class="header-right-button items-button">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button class="header-right-button items-button">
-                            <i class="fas fa-forward"></i>
-                        </button>
-                        <button class="header-right-button items-button">
-                            <i class="fas fa-fast-forward"></i>
-                        </button>
-                    </div>
+                <div class="header-right header-item">
+                    <button class="header-right-button items-button">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="header-right-button items-button">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="header-right-button items-button">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                    <button class="header-right-button items-button">
+                        <i class="fas fa-fast-forward"></i>
+                    </button>
+                </div>
 
-                    <div class="header-right header-item">
-                        <button class="header-right-button items-button">
-                            <i class="far fa-clock"></i> <span id="turns-passed">423</span> / <span id="turns-total">1000</span>
-                        </button>
-                    </div>
+                <div class="header-right header-item">
+                    <button class="header-right-button items-button">
+                        <i class="far fa-clock"></i> <span id="turns-passed">423</span> / <span
+                            id="turns-total">1000</span>
+                    </button>
+                </div>
 
-                    <div class="header-right header-item">
-                        <button class="header-right-button items-button">
-                            ¢<span id="credits">4321</span>
-                        </button>
-                    </div>
+                <div class="header-right header-item">
+                    <button class="header-right-button items-button">
+                        ¢<span id="credits">4321</span>
+                    </button>
+                </div>
                 <!-- </ul> -->
             </nav>
         </header>
@@ -98,7 +99,7 @@
     <div class="change-window" id="one-planet-window">
         <iframe src="one_planet.html" class="change-frame" id="traveling-starship-frame"></iframe>
     </div>
-    
+
 
 
     <div class="main-map">
@@ -131,8 +132,33 @@
     </div>
 
 
+    <div class="start-screen overlay" id="start-screen-overlay">
+        <div class="overlay-pseudoform" id="start-screen-pseudoform">
+            <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
+                <p>Space Dealer</p>
+            </div>
+            <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
+                <ol>
+                    <li>Leia Organa 432</li>
+                    <li>Donald Trump 320</li>
+                    <li>Han Solo 220</li>
+                    <li>Jabba 112</li>
+                    <li>Padme Amidala 69</li>
+                </ol>
+            </div>
+            <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
+                <p>
+                    <button class="action-button" id="play-button" onclick="play()">Play!</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="ts/user_interface/windowControllers.js"></script>
     <script src="ts/user_interface/enterNickname.js"></script>
+    <script src="ts/user_interface/play.js"></script>
     <script src="ts/user_interface/spaceshipsViews.js"></script>
     <script src="ts/user_interface/planetsViews.js"></script>
     <script src="ts/user_interface/itemsViews.js"></script>

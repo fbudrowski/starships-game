@@ -69,8 +69,8 @@ function generateItemsHtml(gameData) {
     for (let index in gameData["items"]) {
         let oneBasedIndex: number = Number(index) + 1;
         let tableRow = `
-        <td><i class="fas fa-boxes"></i> ${oneBasedIndex}</td>
-        <td>${gameData["items"][index]}</td>
+        <td class="order-column"><i class="fas fa-boxes"></i> ${oneBasedIndex}</td>
+        <td class="name-column">${gameData["items"][index]}</td>
         `;
         addTableRow(frameDocument, tableBody, tableRow, classes);
     }
@@ -88,11 +88,11 @@ function generateStarshipsHtml(gameData) {
         let capacity = gameData["starships"][starship]["cargo_hold_size"];
         let onClick = () => { onClickStarship(starship); };
         let tableRow = `
-        <td><i class="fas fa-rocket"></i> ${oneBasedIndex}</td>
-        <td>${starship}</td>
-        <td>&darr; ${position}</td>
-        <td>${coords}</td>
-        <td>0/${capacity}</td>
+        <td class="order-column"><i class="fas fa-rocket"></i> ${oneBasedIndex}</td>
+        <td class="name-column">${starship}</td>
+        <td class="name-column">&darr; ${position}</td>
+        <td class="coord-column">${coords}</td>
+        <td class="capacity-column">0/${capacity}</td>
         `;
         addTableRow(frameDocument, tableBody, tableRow, classes, onClick);
         oneBasedIndex++;
@@ -119,11 +119,11 @@ function generatePlanetsHtml(gameData) {
             }
         }
         ships += " " + starshipCount;
-        ships += " " + starships;
+        ships += ": " + starships;
         let tableRow = `
-        <td><i class="fas fa-planet"></i> ${oneBasedIndex}</td>
-        <td class="bold">${planet}</td>
-        <td>${coords}</td>
+        <td class="order-column"><i class="fas fa-planet"></i> ${oneBasedIndex}</td>
+        <td class="name-column bold">${planet}</td>
+        <td class="resources-column">${coords}</td>
         <td colspan="3">${ships}</td>
         `;
 
@@ -142,12 +142,12 @@ function generatePlanetsHtml(gameData) {
             if (count === 0) classes = "multiline-data-table-entry multiline-data-table-entry-end";
             else classes = "multiline-data-table-entry";
             let rocket_count = 0;
-            let tableRow = `<td></td>
-            <td>${item}</td>
-            <td><i class="fas fa-globe"></i> ${unitsAvailable}</td>
+            let tableRow = `<td class="order-column"></td>
+            <td class="name-column">${item}</td>
+            <td class="resources-column"><i class="fas fa-globe"></i> ${unitsAvailable}</td>
             <td>¢${sell}</td>
             <td>¢${buy}</td>
-            <td><i class="fas fa-rocket"></i> ${rocket_count}</td>`;
+            <td class="resources-column"><i class="fas fa-rocket"></i> ${rocket_count}</td>`;
             addTableRow(frameDocument, tableBody, tableRow, classes, onClick);
         }
     }

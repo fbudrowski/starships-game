@@ -10,7 +10,10 @@
 
 body{
     font-family: Play, sans-serif;
-    background-color:var(--main-bg-color);
+    background-image: linear-gradient(var(--main-bg-color), var(--secondary-bg-color));
+}
+#main-body{
+    background-image: linear-gradient(var(--secondary-bg-color), var(--secondary-bg-color));
 }
 
 .header-area, button{
@@ -69,7 +72,7 @@ body{
     height: 99vh;
     margin:0; 
     padding:0; 
-    background-color: white;
+    background-image: linear-gradient(var(--main-bg-color), var(--secondary-bg-color));
 }
 
 .minimap{
@@ -125,8 +128,12 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    background-color: rgba(0,0,0,0.8); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#enter-nickname-overlay{
+    display: none;
 }
 
 
@@ -167,6 +174,19 @@ body{
     text-align: center;
 }
 
+.start-screen{
+    position: fixed; /* Sit on top of the page content */
+    display: block; 
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
 div.enter-nickname-pseudoform-elem{
     flex-grow: 1;
 }
@@ -177,7 +197,7 @@ div.enter-nickname-pseudoform-elem{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0%);
-
+    background-image: linear-gradient(var(--main-bg-color), var(--secondary-bg-color));
 }
 
 table.data-table{
@@ -227,6 +247,23 @@ tr.data-table-entry td:first-child {
 tr.data-table-entry td:last-child { 
     border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px;
+}
+
+td.order-column{
+    width: 40px;
+}
+
+td.name-column{
+    width: 150px;
+}
+td.coord-column{
+    width: 70px;
+}
+td.capacity-column{
+    width: 70px;
+}
+td.resources-column{
+    width: 110px;
 }
 
 .bold{
