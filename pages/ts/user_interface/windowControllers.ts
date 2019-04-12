@@ -108,7 +108,7 @@ function generatePlanetsHtml(gameData) {
     let oneBasedIndex = 1;
     for (let planet in gameData["planets"]) {
         let coords = `(${gameData["planets"][planet].x}, ${gameData["planets"][planet].y})`;
-        let onClick = () => { };
+        let onClick = () => {onClickPlanet(planet);};
         let ships = `<i class="fas fa-rocket"></i>`;
         let starships = "";
         let starshipCount = 0;

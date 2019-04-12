@@ -92,9 +92,9 @@ function generatePlanetsHtml(gameData) {
     var classes = "planets-table-entry data-table-entry";
     tableBody.innerHTML = " ";
     var oneBasedIndex = 1;
-    for (var planet in gameData["planets"]) {
+    var _loop_2 = function (planet) {
         var coords = "(" + gameData["planets"][planet].x + ", " + gameData["planets"][planet].y + ")";
-        var onClick = function () { };
+        var onClick = function () { onClickPlanet(planet); };
         var ships = "<i class=\"fas fa-rocket\"></i>";
         var starships = "";
         var starshipCount = 0;
@@ -127,5 +127,8 @@ function generatePlanetsHtml(gameData) {
             var tableRow_1 = "<td class=\"order-column\"></td>\n            <td class=\"name-column\">" + item + "</td>\n            <td class=\"resources-column\"><i class=\"fas fa-globe\"></i> " + unitsAvailable + "</td>\n            <td>\u00A2" + sell + "</td>\n            <td>\u00A2" + buy + "</td>\n            <td class=\"resources-column\"><i class=\"fas fa-rocket\"></i> " + rocket_count + "</td>";
             addTableRow(frameDocument, tableBody, tableRow_1, classes_1, onClick);
         }
+    };
+    for (var planet in gameData["planets"]) {
+        _loop_2(planet);
     }
 }

@@ -309,3 +309,8 @@ p.window-name{
     color: var(--main-fg-color);
     background-color: transparent;
 }
+
+td.in-table-breaker{
+    text-align: center;
+    font-size: 1.7em;
+}

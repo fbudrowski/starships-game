@@ -7,6 +7,7 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -19,34 +20,65 @@
 <body>
 
     <div class="data-table-container">
-
+        <p class="window-name">Planet</p>
         <table class="data-table planets-table">
-            <tbody>
+            <tbody id="planets-table-body">
                 <tr class="multiline-data-table-entry multiline-data-table-entry-start">
-                    <td><i class="fas fa-rocket"></i></td>
-                    <td>Millenium Falcon</td>
+                    <td><i class="fas fa-globe"></i>1</td>
+                    <td class="bold">Alderaan</td>
                     <td>(23, 43)</td>
-                    <td colspan="5">&rarr; <i class="fas fa-globe"></i> Will come in 23 seconds to Coruscant</td>
+                    <td colspan="3"><i class="fas fa-rocket"></i>10: Johnny Rocket, Millenium Falcon, Fast Runner...
+                    </td>
+                </tr>
+                <tr class="multiline-data-table-entry">
+                    <td colspan="8" class="in-table-breaker">Items to trade:</td>
                 </tr>
                 <tr class="multiline-data-table-entry">
                     <td></td>
                     <td>Nuka-Cola</td>
                     <td><i class="fas fa-globe"></i> 30</td>
-                    <td><button class="action-button">Buy</button></td>
                     <td>¢432.112</td>
                     <td>¢486.988</td>
-                    <td><button class="action-button">Sell</button></td>
                     <td><i class="fas fa-rocket"></i> 100</td>
                 </tr>
                 <tr class="multiline-data-table-entry multiline-data-table-entry-end">
                     <td></td>
                     <td>Sand</td>
                     <td><i class="fas fa-globe"></i> 30</td>
-                    <td><button class="action-button">Buy</button></td>
                     <td>¢432.112</td>
                     <td>¢486.988</td>
-                    <td><button class="action-button">Sell</button></td>
                     <td><i class="fas fa-rocket"></i> 100</td>
+                </tr>
+
+                <tr class="multiline-data-table-entry">
+                    <td colspan="8" class="in-table-breaker">Ships:</td>
+                </tr>
+                <tr class="multiline-data-table-entry"
+                 onclick="onClickStarship('1')">
+                    <td><i class="fas fa-rocket"></i>1</td>
+                    <td>Johnny Rocket</td>
+                    <td>in 28s &rarr; Alderaan</td>
+                    <td>(43, 12)</td>
+                    <td>43/60</td>
+                    <td></td>
+                </tr>
+                <tr class="multiline-data-table-entry"
+                 onclick="onClickStarship('2')">
+                    <td><i class="fas fa-rocket"></i>2</td>
+                    <td>Johnny Rocket</td>
+                    <td>in 28s &rarr; Alderaan</td>
+                    <td>(43, 12)</td>
+                    <td>43/60</td>
+                    <td></td>
+                </tr>
+                <tr class="multiline-data-table-entry multiline-data-table-entry-end"
+                 onclick="onClickStarship('3')">
+                    <td><i class="fas fa-rocket"></i>3</td>
+                    <td>Johnny Rocket</td>
+                    <td>in 28s &rarr; Alderaan</td>
+                    <td>(43, 12)</td>
+                    <td>43/60</td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
