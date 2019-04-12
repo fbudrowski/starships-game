@@ -102,7 +102,7 @@ body{
 .change-window{
     position: absolute;
     display: none;
-    width: 75%;
+    width: 85%;
     height: 80%;
     top: 10%;
     left: 10%;
@@ -111,7 +111,7 @@ body{
 
 .change-frame{
     position: relative;
-    width: 75%;
+    width: 85%;
     height: 80%;
     border: 5px solid black;
     border-radius: 20px;
@@ -268,4 +268,26 @@ td.resources-column{
 
 .bold{
     font-weight: bolder;
+}
+
+p.giant-text-logo{
+    font-family: Monoton, monospace;
+    font-size: 5rem;
+}
+
+.hall-of-fame-table{
+    display: table;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border-color: gray;
+}
+
+.giant-button{
+    font-size: 4rem;
+    padding: 40px 40px 40px 40px;
+    font-family: Monoton, monospace;
+}
+
+.game-name-button{
+    font-family: Monoton, monospace;
 }

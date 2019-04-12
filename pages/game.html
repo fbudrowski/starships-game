@@ -9,6 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -20,9 +21,8 @@
     <div class="header-area">
         <header class="header">
             <nav class="navbar">
-                <!-- <ul class="navbar-list"> -->
                 <div class="header-left header-item">
-                    <button class="header-left-button bold">
+                    <button class="header-left-button bold game-name-button">
                         Space Dealer
                     </button>
                 </div>
@@ -80,7 +80,6 @@
                         ¢<span id="credits">4321</span>
                     </button>
                 </div>
-                <!-- </ul> -->
             </nav>
         </header>
     </div>
@@ -107,7 +106,6 @@
     </div>
 
     <div class="minimap">
-        <!-- XD -->
         <iframe src="minimap.html" class="minimap-frame"></iframe>
     </div>
 
@@ -135,20 +133,43 @@
     <div class="start-screen overlay" id="start-screen-overlay">
         <div class="overlay-pseudoform" id="start-screen-pseudoform">
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
-                <p>Space Dealer</p>
+                <p class="giant-text-logo">Space Dealer</p>
             </div>
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
-                <ol>
-                    <li>Leia Organa 432</li>
-                    <li>Donald Trump 320</li>
-                    <li>Han Solo 220</li>
-                    <li>Jabba 112</li>
-                    <li>Padme Amidala 69</li>
-                </ol>
+                <p>Hall of fame:</p>
+            </div>
+            <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
+                <table class="hall-of-fame-table">
+                    <tr>
+                        <td>1.</td>
+                        <td>Jeff Bezos</td>
+                        <td>432</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td>Donald Trump</td>
+                        <td>322</td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td>Steve Jobs</td>
+                        <td>301</td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td>Bill Gates</td>
+                        <td>232</td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td>John Vitkac</td>
+                        <td>2</td>
+                    </tr>
+                </table>
             </div>
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
                 <p>
-                    <button class="action-button" id="play-button" onclick="play()">Play!</button>
+                    <button class="giant-button action-button" id="play-button" onclick="play()">Play!</button>
                 </p>
             </div>
         </div>

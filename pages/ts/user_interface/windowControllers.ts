@@ -13,7 +13,8 @@ function toggleWindow(window: HTMLElement) {
         }
         window.style.display = "none";
     }
-} function toggleWindowFromChild(window: HTMLElement) {
+}
+function toggleWindowFromChild(window: HTMLElement) {
     let windows = parent.document.getElementsByClassName("change-window");
     let i = 0;
     if (window.style.display != "block") {
@@ -51,7 +52,7 @@ function generateGameHtml(gameData) {
 }
 
 function addTableRow(frameDocument, tableBody, tableRowHtml, classes,
-    onClick = function () { }) {
+                     onClick = function () { }) {
     let newElement = frameDocument.createElement("tr");
     newElement.className = classes;
     newElement.innerHTML = tableRowHtml;
