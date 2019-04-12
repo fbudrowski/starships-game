@@ -102,19 +102,20 @@ body{
 .change-window{
     position: absolute;
     display: none;
-    width: 85%;
-    height: 80%;
+    width: 75%;
+    height: 70%;
     top: 10%;
     left: 10%;
     z-index: 100;
+    background-color: rgba(0,0,0,0.4);
+    border: 5px solid black;
+    border-radius: 20px;
 }
 
 .change-frame{
     position: relative;
-    width: 85%;
-    height: 80%;
-    border: 5px solid black;
-    border-radius: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -197,7 +198,6 @@ div.enter-nickname-pseudoform-elem{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0%);
-    background-image: linear-gradient(var(--main-bg-color), var(--secondary-bg-color));
 }
 
 table.data-table{
@@ -275,6 +275,11 @@ p.giant-text-logo{
     font-size: 5rem;
 }
 
+p.small-text-logo{
+    font-family: Monoton, monospace;
+    font-size: 3rem;
+}
+
 .hall-of-fame-table{
     display: table;
     border-collapse: separate;
@@ -284,10 +289,23 @@ p.giant-text-logo{
 
 .giant-button{
     font-size: 4rem;
-    padding: 40px 40px 40px 40px;
+    font-family: Monoton, monospace;
+}
+.small-special-button{
+    font-size: 2rem;
     font-family: Monoton, monospace;
 }
 
 .game-name-button{
     font-family: Monoton, monospace;
+    font-size: 1rem;
+}
+
+p.window-name{
+    position: sticky;
+    text-align: center;
+    font-family: Monoton, monospace;
+    font-size: 5rem;
+    color: var(--main-fg-color);
+    background-color: transparent;
 }
