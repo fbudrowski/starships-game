@@ -30,6 +30,20 @@ function toggleWindowFromChild(window) {
         window.style.display = "none";
     }
 }
+function untoggleWindows() {
+    var windows = document.getElementsByClassName("change-window");
+    var i = 0;
+    for (i = 0; i < windows.length; i++) {
+        windows[i].style.display = "none";
+    }
+}
+function untoggleWindowsFromChild() {
+    var windows = parent.document.getElementsByClassName("change-window");
+    var i = 0;
+    for (i = 0; i < windows.length; i++) {
+        windows[i].style.display = "none";
+    }
+}
 function setGameDuration(game_duration) {
     var container = document.getElementById("turns-total");
     container.innerText = "" + game_duration;

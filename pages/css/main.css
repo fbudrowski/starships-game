@@ -16,6 +16,8 @@ body{
     background-image: linear-gradient(var(--secondary-bg-color), var(--secondary-bg-color));
 }
 
+/* Headers */
+
 .header-area, button{
     font-family: Play, sans-serif;
     font-size: 1.3rem;
@@ -55,7 +57,10 @@ body{
     float: right;
     color: var(--main-fg-color);
 }
-.main-map{
+
+/* Centre area */
+
+.class-main-field{
     position: relative;
     width: 100%;
     height: 99vh;
@@ -66,7 +71,7 @@ body{
 }
 
 
-#map{
+#main-field{
     /* z-index: 500; */
     width: 100%;
     height: 99vh;
@@ -75,29 +80,7 @@ body{
     background-image: linear-gradient(var(--main-bg-color), var(--secondary-bg-color));
 }
 
-.minimap{
-    position: absolute;
-    right: 1%;
-    bottom: 1%;
-    /* border-radius: 10%; */
-    border: 0px solid yellow;
-    padding: 0px 0px 0px 0px;
-    overflow: visible;
-}
-.minimap-frame{
-    border: 0px solid brown;
-    padding: 0px 0px 0px 0px;
-    margin: 0 0 0 0;
-    height: 260px;
-    width: 260px;
-    overflow: visible;
-}
-
-.minimap-image-rounded > img{
-    border: black solid 30px;
-    padding: 0px 0px 0px 0px;
-    border-radius: 10px;
-}
+/* Windows */
 
 .change-window{
     position: absolute;
@@ -116,6 +99,15 @@ body{
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+.close-button{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    background: transparent;
+    color: var(--main-fg-color);
+    border-radius: 10px;
 }
 
 

@@ -1,9 +1,10 @@
-import "es6-promise";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("es6-promise");
 typeof globalThis;
-
 let Loader = {
     images: {},
-    loadImage: (key: any, src: any) => {
+    loadImage: (key, src) => {
         let img = new Image();
         let d = new Promise((resolve, reject) => {
             img.onload = function () {
@@ -12,15 +13,13 @@ let Loader = {
             }.bind(this);
             img.onerror = () => {
                 reject("Could not load image");
-            }
+            };
         });
     },
-    getImage: (key: any) => {
+    getImage: (key) => {
         return (key in this.images) ? this.images[key] : null;
     },
 };
-
-
 let Keyboard = {
     LEFT: 37,
     RIGHT: 39,
@@ -55,13 +54,10 @@ let Keyboard = {
         return this.priv_keys[keyCode];
     }
 };
-
-
 let Game = {
     run: (context) => {
         this.ctx = context;
         this.priv_previousElapsed = 0;
-
         let p = this.load();
         Promise.all(p).then(function (loaded) {
             this.init();
@@ -70,21 +66,18 @@ let Game = {
     },
     tick: (elapsed) => {
         window.requestAnimationFrame(this.tick);
-
-        this.ctx.clearRect(0,0,512,512);
-        let delta = Math.min(
-            (elapsed - this._previousElapsed) / 1000.0,
-            0.25);
+        this.ctx.clearRect(0, 0, 512, 512);
+        let delta = Math.min((elapsed - this._previousElapsed) / 1000.0, 0.25);
         this._previousElapsed = elapsed;
         this.update(delta);
         this.render();
     },
-    init: () => {},
-    update: (delta) => {},
-    render: () => {},
-}
-
-window.onload = function() {
-    let context = (<any>document.getElementById('demo')).getContext('2d');
+    init: () => { },
+    update: (delta) => { },
+    render: () => { },
+};
+window.onload = function () {
+    let context = document.getElementById('demo').getContext('2d');
     Game.run(context);
-}
+};
+//# sourceMappingURL=loaders.js.map
