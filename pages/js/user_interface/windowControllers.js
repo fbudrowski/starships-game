@@ -73,7 +73,9 @@ export function addTableRow(frameDocument, tableBody, tableRowHtml, classes, onC
 }
 export function generateItemsHtml(gameData) {
     let frameDocument = document.getElementById("items-frame").contentDocument;
+    // alert(frameDocument);
     let tableBody = frameDocument.getElementById("items-table-body");
+    // alert(tableBody);
     tableBody.innerHTML = " ";
     let classes = "items-table-entry data-table-entry";
     for (let index in gameData["items"]) {

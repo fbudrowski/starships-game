@@ -17,7 +17,7 @@ interface Planet {
     available_items: Items,
     x: number,
     y: number,
-    starships: string[],
+    starships: Object,
 };
 interface Planets {
     [planet: string]: Planet,
@@ -76,7 +76,7 @@ function generateModel(initialState) {
             available_items: Object(),
             x: oldPlanetVal.x,
             y: oldPlanetVal.y,
-            starships: [],
+            starships: Object(),
             id: indx,
         };
         for (let item in oldPlanetVal.available_items) {
@@ -105,6 +105,7 @@ function generateModel(initialState) {
             travel_remaining_time: 0,
             held_items: Object(),
         }
+        game.planets[game.starships[starship].position].starships[starship] = true;
     }
     localStorage.setItem('game', JSON.stringify(game));
 }

@@ -35,10 +35,10 @@ export function setTravelingStarshipWindow(starship) {
         <td>${realItem.name}</td>
         <td><i class="fas fa-rocket"></i>${(planetItem in ship.held_items) ? ship.held_items[planetItem] : 0}</td>
         <td><i class="fas fa-globe"></i>${realItem.available}</td>
-        <td><button class="action-button">Buy</button></td>
-        <td>¢${realItem.buy_price}</td>
-        <td>¢${realItem.sell_price}</td>
         <td><button class="action-button">Sell</button></td>
+        <td>¢${realItem.sell_price}</td>
+        <td>¢${realItem.buy_price}</td>
+        <td><button class="action-button">Buy</button></td>
         `;
         addTableRow(frameDocument, tableBody, itemHtml, "multiline-data-table-entry");
     }
