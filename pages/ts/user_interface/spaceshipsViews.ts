@@ -26,9 +26,9 @@ export function setTravelingStarshipWindow(starship){
             <td colspan="8" class="in-table-breaker">Items to trade:</td>
         </tr>
     `;
-    let element = frameDocument.getElementById("one-starship-table-body");
+    let tableBody = frameDocument.getElementById("one-starship-table-body");
     // alert(element);
-    element.innerHTML = innerHTML;
+    tableBody.innerHTML = innerHTML;
     
     let planetItems = game.planets[ship.position].available_items;
 
@@ -45,8 +45,10 @@ export function setTravelingStarshipWindow(starship){
         <td>¢${realItem.sell_price}</td>
         <td><button class="action-button">Sell</button></td>
         `;
-        addTableRow(frameDocument, element, itemHtml, "multiline-data-table-entry");
+        addTableRow(frameDocument, tableBody, itemHtml, "multiline-data-table-entry");
     }
+    let lastChild = <HTMLElement> tableBody.lastChild;
+    lastChild.classList.add("multiline-data-table-entry-end");
 
 }
 
