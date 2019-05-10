@@ -96,5 +96,5 @@ function generateModel(initialState){
 
 
 function buyItems(game: Game, starship: string, item: string, ){
-
+    
 }
