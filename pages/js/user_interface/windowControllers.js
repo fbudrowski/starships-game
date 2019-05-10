@@ -1,4 +1,6 @@
-function toggleWindow(window) {
+import { onClickStarship } from "./spaceshipsViews.js";
+import { onClickPlanet } from "./planetsViews.js";
+export function toggleWindow(window) {
     let windows = document.getElementsByClassName("change-window");
     let i = 0;
     if (window.style.display != "block") {
@@ -14,7 +16,7 @@ function toggleWindow(window) {
         window.style.display = "none";
     }
 }
-function toggleWindowFromChild(window) {
+export function toggleWindowFromChild(window) {
     let windows = parent.document.getElementsByClassName("change-window");
     let i = 0;
     if (window.style.display != "block") {
@@ -30,38 +32,38 @@ function toggleWindowFromChild(window) {
         window.style.display = "none";
     }
 }
-function untoggleWindows() {
+export function untoggleWindows() {
     let windows = document.getElementsByClassName("change-window");
     let i = 0;
     for (i = 0; i < windows.length; i++) {
         windows[i].style.display = "none";
     }
 }
-function untoggleWindowsFromChild() {
+export function untoggleWindowsFromChild() {
     let windows = parent.document.getElementsByClassName("change-window");
     let i = 0;
     for (i = 0; i < windows.length; i++) {
         windows[i].style.display = "none";
     }
 }
-function setGameDuration(game_duration) {
+export function setGameDuration(game_duration) {
     let container = document.getElementById("turns-total");
     container.innerText = `${game_duration}`;
 }
-function setCurrentTurn(current_turn) {
+export function setCurrentTurn(current_turn) {
     let container = document.getElementById("turns-passed");
     container.innerText = `${current_turn}`;
 }
-function setCredits(new_credits) {
+export function setCredits(new_credits) {
     let container = document.getElementById("credits");
     container.innerText = `${new_credits}`;
 }
-function generateGameHtml(gameData) {
+export function generateGameHtml(gameData) {
     setGameDuration(gameData["game_duration"]);
-    setCurrentTurn(0);
-    setCredits(gameData["initial_credits"]);
+    setCurrentTurn(gameData.time_passed);
+    setCredits(gameData.credits);
 }
-function addTableRow(frameDocument, tableBody, tableRowHtml, classes, onClick = function () { }) {
+export function addTableRow(frameDocument, tableBody, tableRowHtml, classes, onClick = function () { }) {
     let newElement = frameDocument.createElement("tr");
     newElement.className = classes;
     newElement.innerHTML = tableRowHtml;
@@ -69,7 +71,7 @@ function addTableRow(frameDocument, tableBody, tableRowHtml, classes, onClick = 
     // alert(newElement.onClick);
     tableBody.appendChild(newElement);
 }
-function generateItemsHtml(gameData) {
+export function generateItemsHtml(gameData) {
     let frameDocument = document.getElementById("items-frame").contentDocument;
     let tableBody = frameDocument.getElementById("items-table-body");
     tableBody.innerHTML = " ";
@@ -83,7 +85,7 @@ function generateItemsHtml(gameData) {
         addTableRow(frameDocument, tableBody, tableRow, classes);
     }
 }
-function generateStarshipsHtml(gameData) {
+export function generateStarshipsHtml(gameData) {
     let frameDocument = document.getElementById("starships-frame").contentDocument;
     let tableBody = frameDocument.getElementById("starships-table-body");
     let classes = "starships-table-entry data-table-entry";
@@ -105,7 +107,7 @@ function generateStarshipsHtml(gameData) {
         oneBasedIndex++;
     }
 }
-function generatePlanetsHtml(gameData) {
+export function generatePlanetsHtml(gameData) {
     let frameDocument = document.getElementById("planets-frame").contentDocument;
     let tableBody = frameDocument.getElementById("planets-table-body");
     let classes = "planets-table-entry data-table-entry";

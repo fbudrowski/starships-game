@@ -1,4 +1,8 @@
-function toggleWindow(window: HTMLElement) {
+import { Game } from "./objectsModel.js";
+import { onClickStarship} from "./spaceshipsViews.js";
+import { onClickPlanet } from "./planetsViews.js";
+
+export function toggleWindow(window: HTMLElement) {
     let windows = document.getElementsByClassName("change-window");
     let i = 0;
     if (window.style.display != "block") {
@@ -14,7 +18,7 @@ function toggleWindow(window: HTMLElement) {
         window.style.display = "none";
     }
 }
-function toggleWindowFromChild(window: HTMLElement) {
+export function toggleWindowFromChild(window: HTMLElement) {
     let windows = parent.document.getElementsByClassName("change-window");
     let i = 0;
     if (window.style.display != "block") {
@@ -31,7 +35,7 @@ function toggleWindowFromChild(window: HTMLElement) {
     }
 }
 
-function untoggleWindows(){
+export function untoggleWindows(){
     let windows = document.getElementsByClassName("change-window");
     let i = 0;
     for (i = 0; i < windows.length; i++) {
@@ -39,7 +43,7 @@ function untoggleWindows(){
     }
 }
 
-function untoggleWindowsFromChild(){
+export function untoggleWindowsFromChild(){
     let windows = parent.document.getElementsByClassName("change-window");
     let i = 0;
     for (i = 0; i < windows.length; i++) {
@@ -47,28 +51,28 @@ function untoggleWindowsFromChild(){
     }
 }
 
-function setGameDuration(game_duration: number) {
+export function setGameDuration(game_duration: number) {
     let container = document.getElementById("turns-total");
     container.innerText = `${game_duration}`;
 }
-function setCurrentTurn(current_turn: number) {
+export function setCurrentTurn(current_turn: number) {
     let container = document.getElementById("turns-passed");
     container.innerText = `${current_turn}`;
 }
-function setCredits(new_credits: number) {
+export function setCredits(new_credits: number) {
     let container = document.getElementById("credits");
     container.innerText = `${new_credits}`;
 }
 
 
-function generateGameHtml(gameData) {
+export function generateGameHtml(gameData : Game) {
     setGameDuration(gameData["game_duration"]);
-    setCurrentTurn(0);
-    setCredits(gameData["initial_credits"]);
+    setCurrentTurn(gameData.time_passed);
+    setCredits(gameData.credits);
 }
 
-function addTableRow(frameDocument, tableBody, tableRowHtml, classes,
-                     onClick = function () { }) {
+export function addTableRow(frameDocument, tableBody, tableRowHtml, classes,
+                     onClick = function () {}) {
     let newElement = frameDocument.createElement("tr");
     newElement.className = classes;
     newElement.innerHTML = tableRowHtml;
@@ -77,7 +81,7 @@ function addTableRow(frameDocument, tableBody, tableRowHtml, classes,
     tableBody.appendChild(newElement);
 }
 
-function generateItemsHtml(gameData) {
+export function generateItemsHtml(gameData) {
     let frameDocument = (<HTMLFrameElement>document.getElementById("items-frame")).contentDocument;
     let tableBody = frameDocument.getElementById("items-table-body");
     tableBody.innerHTML = " ";
@@ -93,7 +97,7 @@ function generateItemsHtml(gameData) {
     }
 }
 
-function generateStarshipsHtml(gameData) {
+export function generateStarshipsHtml(gameData) {
     let frameDocument = (<HTMLFrameElement>document.getElementById("starships-frame")).contentDocument;
     let tableBody = frameDocument.getElementById("starships-table-body");
     let classes = "starships-table-entry data-table-entry";
@@ -116,7 +120,7 @@ function generateStarshipsHtml(gameData) {
     }
 }
 
-function generatePlanetsHtml(gameData) {
+export function generatePlanetsHtml(gameData) {
     let frameDocument = (<HTMLFrameElement>document.getElementById("planets-frame")).contentDocument;
     let tableBody = frameDocument.getElementById("planets-table-body");
     let classes = "planets-table-entry data-table-entry";

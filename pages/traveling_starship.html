@@ -22,8 +22,8 @@
     <button class="close-button" onclick="untoggleWindowsFromChild()">X</button>
     <div class="data-table-container">
         <p class="window-name">Starship</p>
-        <table class="data-table planets-table">
-            <tbody>
+        <table class="data-table planets-table" id="one-starship-table">
+            <tbody id="one-starship-table-body">
                 <tr class="multiline-data-table-entry multiline-data-table-entry-start"
                 data-ship-id="1">
                     <td class="data-table-ship-logo"><i class="fas fa-rocket"></i>1</td>
@@ -60,11 +60,12 @@
         </table>
     </div>
 
-    <script src="js/user_interface/windowControllers.js"></script>
-    <script src="js/user_interface/enterNickname.js"></script>
-    <script src="js/user_interface/spaceshipsViews.js"></script>
-    <script src="js/user_interface/planetsViews.js"></script>
-    <script src="js/user_interface/itemsViews.js"></script>
+    <script src="js/user_interface/windowControllers.js" type="module"></script>
+    <script src="js/user_interface/enterNickname.js" type="module"></script>
+    <script src="js/user_interface/spaceshipsViews.js" type="module"></script>
+    <script src="js/user_interface/planetsViews.js" type="module"></script>
+    <script src="js/user_interface/itemsViews.js" type="module"></script>
+    <script src="js/user_interface/pageGenerate.js" type="module"></script>
 </body>
 
 </html>

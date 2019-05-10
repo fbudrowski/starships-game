@@ -1,4 +1,5 @@
 import * as objModel from "./objectsModel.js";
+import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml } from "./windowControllers.js";
 
 let initialStateString = `{
     "game_duration": 300,
@@ -735,13 +736,13 @@ let initialStateString = `{
     }
 }`;
 
-alert("Generating model");
 
 let initialState = JSON.parse(initialStateString);
 objModel.generateModel(initialState);
+let model = objModel.getGame();
 
 
-generateGameHtml(initialState);
+generateGameHtml(model);
 generateItemsHtml(initialState);
 generateStarshipsHtml(initialState);
 generatePlanetsHtml(initialState);

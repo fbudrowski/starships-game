@@ -1,15 +1,16 @@
-function togglePlanetsWindow() {
+import { toggleWindowFromChild, toggleWindow } from "./windowControllers.js";
+export function togglePlanetsWindow() {
     let itemsWindow = document.getElementById("planets-window");
     toggleWindow(itemsWindow);
 }
-function setOnePlanetWindow(planet) {
+export function setOnePlanetWindow(planet) {
     alert("Planet " + planet);
 }
-function toggleOnePlanetWindow() {
+export function toggleOnePlanetWindow() {
     let travelingStarshipWindow = window.parent.document.getElementById("one-planet-window");
     toggleWindowFromChild(travelingStarshipWindow);
 }
-function onClickPlanet(planet) {
+export function onClickPlanet(planet) {
     toggleOnePlanetWindow();
     setOnePlanetWindow(planet);
 }
