@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 let initialStateString = `{
     "game_duration": 300,
     "initial_credits": 1984,
@@ -733,6 +735,8 @@ let initialStateString = `{
     }
 }`;
 let initialState = JSON.parse(initialStateString);
+const objectsModel_1 = require("./objectsModel");
+objectsModel_1.generateModel(initialState);
 generateGameHtml(initialState);
 generateItemsHtml(initialState);
 generateStarshipsHtml(initialState);

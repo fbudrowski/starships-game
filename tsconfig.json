@@ -1,18 +1,18 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "es2016",
         "noImplicitAny": false,
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "pages/js",
         "baseUrl": ".",
         "paths": {},
         "noImplicitThis": false,
+        "lib": ["es2015", "dom"]
     },
     "include": [
         "pages/**/*"
-    ]
+    ],
 }
 
