@@ -102,12 +102,14 @@ body{
 }
 
 .close-button{
-    position: absolute;
+    position: fixed;
     top: 1%;
     right: 1%;
     background: transparent;
     color: var(--main-fg-color);
     border-radius: 10px;
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -203,7 +205,7 @@ tr.multiline-data-table-entry, tr.multiline-data-table-entry > td{
     padding: 5px 30px 5px 30px;  
     line-height: 2em;
     font-family: Play, sans-serif;
-    font-size: 1em;  
+    font-size: 1em;
 }
 tr.multiline-data-table-entry-start td:first-child { 
     border-top-left-radius: 20px;

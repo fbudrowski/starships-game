@@ -1,3 +1,6 @@
+import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml } from "./windowControllers.js";
+import { setTravelingStarshipWindow } from "./spaceshipsViews.js";
+import { setOnePlanetWindow } from "./planetsViews.js";
 export { generateModel };
 ;
 ;
@@ -6,15 +9,23 @@ export { generateModel };
 ;
 ;
 ;
+let gameLock = 0;
+export function getGame() {
+    return JSON.parse(localStorage.getItem('game'));
+}
+export function returnGame(game) {
+    localStorage.setItem('game', JSON.stringify(game));
+}
 function generateModel(initialState) {
-    let game = { game_duration: 0, time_passed: 0, credits: 0, items: Object(), planets: Object(), starships: Object() };
+    let game = { game_duration: 0, time_passed: 0, credits: 0, items: Object(), planets: Object(), starships: Object(), player_name: "player" };
     game.game_duration = initialState['game_duration'];
     game.time_passed = 0;
     game.credits = initialState['initial_credits'];
     let indx = 0;
-    for (let item in initialState['items']) {
-        indx++;
-        game.items[item] = indx;
+    for (let itemInd in initialState['items']) {
+        let item = initialState['items'][itemInd];
+        // indx++;
+        game.items[item] = Number(itemInd);
     }
     indx = 0;
     for (let planet in initialState['planets']) {
@@ -56,9 +67,10 @@ function generateModel(initialState) {
         };
         game.planets[game.starships[starship].position].starships[starship] = true;
     }
-    localStorage.setItem('game', JSON.stringify(game));
+    returnGame(game);
 }
 export function buyItems(game, starship, item, howmany) {
+    game = getGame();
     if (!(starship in game.starships)) {
         return false;
     }
@@ -74,27 +86,33 @@ export function buyItems(game, starship, item, howmany) {
     if (!(item in planetItems) ||
         planetItems[item].available < howmany ||
         ship.cargo_used + howmany > ship.cargo_hold_size ||
-        planetItems[item].sell_price * howmany > game.credits) {
+        planetItems[item].buy_price * howmany > game.credits) {
         return false;
     }
-    game.credits -= planetItems[item].sell_price * howmany;
-    if (item in ship.held_items) {
-        ship.held_items[item] += howmany;
+    game.credits -= planetItems[item].buy_price * howmany;
+    if (!(item in ship.held_items)) {
+        ship.held_items[item] = 0;
     }
-    else {
-        ship.held_items[item] = howmany;
-    }
+    ship.held_items[item] += howmany;
+    ship.cargo_used += howmany;
     planetItems[item].available -= howmany;
-    localStorage.setItem('game', JSON.stringify(game));
+    game.starships[starship] = ship;
+    // alert("Buying element " + item + " for ship " + starship + "in " + howmany + " units for " + planetItems[item].buy_price * howmany + " credits");
+    returnGame(game);
+    generatePlanetsHtml(game);
+    generateStarshipsHtml(game);
+    generateGameHtml(game);
+    setTravelingStarshipWindow(starship);
     return true;
 }
 ;
 export function sellItems(game, starship, item, howmany) {
+    game = getGame();
     if (!(starship in game.starships)) {
         return false;
     }
     let ship = game.starships[starship];
-    if (ship.travel_remaining_time > 0) {
+    if (ship.travel_remaining_time > 0 || !(item in ship.held_items) || ship.held_items[item] <= 0) {
         return false;
     }
     let planet = ship.position;
@@ -105,37 +123,110 @@ export function sellItems(game, starship, item, howmany) {
     if (!(item in planetItems) || (!(item in ship.held_items))) {
         return false;
     }
-    game.credits += planetItems[item].buy_price * howmany;
+    game.credits += planetItems[item].sell_price * howmany;
     ship.held_items[item] -= howmany;
     planetItems[item].available += howmany;
     ship.cargo_used -= howmany;
-    localStorage.setItem('game', JSON.stringify(game));
+    returnGame(game);
+    generatePlanetsHtml(game);
+    generateStarshipsHtml(game);
+    generateGameHtml(game);
+    setTravelingStarshipWindow(starship);
     return true;
 }
 ;
-function travel(game, starship, target) {
+export function travel(game, starship, target) {
     if (!(starship in game.starships) || !(target in game.planets)) {
         return false;
     }
     let ship = game.starships[starship];
-    if (ship.travel_remaining_time > 0) {
+    if (ship.travel_remaining_time > 0 || ship.position === target) {
         return false;
     }
     let target_coords = {
         x: game.planets[target].x,
         y: game.planets[target].y,
     };
+    delete game.planets[ship.position].starships[starship];
     let distancesq = (ship.target_x - target_coords.x) * (ship.target_x - target_coords.x)
         + (ship.target_y - target_coords.y) * (ship.target_y - target_coords.y);
-    let distance = Math.sqrt(distancesq);
+    let distance = Math.round(Math.sqrt(distancesq));
     ship.travel_remaining_time = distance;
     ship.target_x = target_coords.x;
     ship.target_y = target_coords.y;
     ship.position = target;
-    localStorage.setItem('game', JSON.stringify(game));
+    returnGame(game);
+    generatePlanetsHtml(game);
+    generateStarshipsHtml(game);
+    generateGameHtml(game);
     return true;
 }
-export function getGame() {
-    return JSON.parse(localStorage.getItem('game'));
+function getDistance(game, planet1, planet2) {
+    let diffx = (game.planets[planet1].x - game.planets[planet2].x);
+    let diffy = (game.planets[planet1].y - game.planets[planet2].y);
+    return Math.sqrt(diffx * diffx + diffy * diffy);
+}
+// export function moveToAnotherPlanet(game: Game, starship: string, targetPlanet: string) {
+//     if (!(starship in game.starships) || !(targetPlanet in game.planets) || game.starships[starship].travel_remaining_time > 0) {
+//         return false;
+//     }
+//     let ship = game.starships[starship];
+//     let distance = getDistance(game, ship.position, targetPlanet);
+//     delete game.planets[ship.position].starships[ship.name];
+//     game.planets[targetPlanet].starships[ship.name] = true;
+//     ship.position = targetPlanet;
+//     ship.travel_remaining_time = Math.round(distance);
+//     ship.target_x = game.planets[targetPlanet].x;
+//     ship.target_y = game.planets[targetPlanet].y;
+//returnGame(game);
+//     return true;
+// }
+export function tickTimeUnit(game) {
+    game.time_passed++;
+    // alert("Tick " + game.time_passed);
+    let hasChanged = false;
+    let affectedStarship = Object();
+    for (let starshipName in game.starships) {
+        let ship = game.starships[starshipName];
+        // if (ship.travel_remaining_time % 4 === 1){
+        // alert("Ship " + ship.name + " has remaining travel time of " + ship.travel_remaining_time);
+        // } 
+        if (ship.travel_remaining_time > 0) {
+            affectedStarship[starshipName] = true;
+            ship.travel_remaining_time--;
+            if (ship.travel_remaining_time === 0) {
+                game.planets[ship.position].starships[starshipName] = true;
+                alert("Ship " + ship.name + " has arrived in " + ship.position);
+            }
+            hasChanged = true;
+        }
+    }
+    returnGame(game);
+    let currentPlanet = localStorage.getItem("current_planet");
+    let currentStarship = localStorage.getItem("current_starship");
+    if (hasChanged) {
+        for (let starshipName in affectedStarship) {
+            let ship = game.starships[starshipName];
+            if (starshipName === currentStarship) {
+                setTravelingStarshipWindow(starshipName);
+            }
+            if (ship.position === currentPlanet) {
+                setOnePlanetWindow(currentPlanet);
+            }
+        }
+    }
+    generateGameHtml(game);
+    if (hasChanged) {
+        generateStarshipsHtml(game);
+        generatePlanetsHtml(game);
+    }
+}
+export function startGame() {
+    let intervalId = setInterval(() => { tickTimeUnit(getGame()); }, 1000);
+    localStorage.setItem('intervalId', intervalId.toString());
+}
+export function stopGame() {
+    let intervalId = parseInt(localStorage.getItem('intervalId'));
+    clearInterval(intervalId);
 }
 //# sourceMappingURL=objectsModel.js.map

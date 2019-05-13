@@ -6,7 +6,9 @@ export function togglePlanetsWindow() {
     let itemsWindow = document.getElementById("planets-window");
     toggleWindow(itemsWindow);
 }
+
 export function setOnePlanetWindow(planetName) {
+    localStorage.setItem("current_planet", planetName);
 
     let frameDocument = (<HTMLFrameElement>parent.document.getElementById("one-planet-frame")).contentDocument;
     // alert(frameDocument);
@@ -81,4 +83,17 @@ export function toggleOnePlanetWindow() {
 export function onClickPlanet(planet: string) {
     toggleOnePlanetWindow();
     setOnePlanetWindow(planet);
+}
+
+
+export function getPlanetSelectionList(game: Game){
+    let answer = `<select id="planet-selection-list">
+    `;
+    for(let planet in game.planets){
+        // alert("planet " + planet);
+        answer += ` <option value="${planet}">${planet}</option>
+        `;
+    }
+    answer += `</select>`;
+    return answer;
 }

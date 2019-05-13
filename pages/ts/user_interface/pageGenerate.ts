@@ -5,24 +5,19 @@ import { toggleItemsWindow } from "./itemsViews.js";
 import { play } from './play.js';
 import { submitNickname } from "./enterNickname.js";
 
-function assignOnClickTo(id: string, func) {
+export function assignOnClickTo(id: string, func) {
     let element: HTMLElement = document.getElementById(id);
     if (element !== null) {
         element.onclick = func;
     }
 }
-
-assignOnClickTo("game-button", () => { untoggleWindows() });
-assignOnClickTo("starships-button", () => { toggleStarshipsWindow() });
-assignOnClickTo("planets-button", () => { togglePlanetsWindow() });
-assignOnClickTo("items-button", () => { toggleItemsWindow() });
-assignOnClickTo("submitNicknameButton", () => { submitNickname() });
-assignOnClickTo("play-button", () => { play() });
+// alert("Generating behaviours");
 let elems = document.getElementsByClassName("close-button");
 let i = 0;
 for (; i < elems.length; i++){
     let elem = <HTMLElement> elems[i];
     elem.onclick = () => {untoggleWindowsFromChild() };
+    // alert("elem " + elem.className + " will close on click");
 };
 
 

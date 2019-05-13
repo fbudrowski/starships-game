@@ -1,5 +1,11 @@
 import * as objModel from "./objectsModel.js";
-import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml } from "./windowControllers.js";
+import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml, untoggleWindows } from "./windowControllers.js";
+import { assignOnClickTo } from "./pageGenerate.js";
+import { toggleStarshipsWindow } from "./spaceshipsViews.js";
+import { togglePlanetsWindow } from "./planetsViews.js";
+import { toggleItemsWindow } from "./itemsViews.js";
+import { submitNickname } from "./enterNickname.js";
+import { play } from "./play.js";
 let initialStateString = `{
     "game_duration": 300,
     "initial_credits": 1984,
@@ -734,11 +740,22 @@ let initialStateString = `{
         }
     }
 }`;
-let initialState = JSON.parse(initialStateString);
+export let initialState = JSON.parse(initialStateString);
 objModel.generateModel(initialState);
 let model = objModel.getGame();
+// alert("Generating game");
 generateGameHtml(model);
-generateItemsHtml(initialState);
-generateStarshipsHtml(initialState);
-generatePlanetsHtml(initialState);
+// alert("Generating items");
+generateItemsHtml(model);
+// alert("Generating starships");
+generateStarshipsHtml(model);
+// alert("Generating planets");
+generatePlanetsHtml(model);
+// alert("Generated all");
+assignOnClickTo("game-button", () => { untoggleWindows(); });
+assignOnClickTo("starships-button", () => { toggleStarshipsWindow(); });
+assignOnClickTo("planets-button", () => { togglePlanetsWindow(); });
+assignOnClickTo("items-button", () => { toggleItemsWindow(); });
+assignOnClickTo("submitNicknameButton", () => { submitNickname(); });
+assignOnClickTo("play-button", () => { play(); });
 //# sourceMappingURL=generate.js.map
