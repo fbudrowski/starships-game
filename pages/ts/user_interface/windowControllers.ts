@@ -111,11 +111,15 @@ export function generateItemsHtml(game: Game) {
     let classes = "items-table-entry data-table-entry";
 
     for (let item in game.items) {
-        let oneBasedIndex: number = Number(game.items[item]) + 1;
+        let oneBasedIndex: number = game.items[item].id + 1;
+        let globalItem = game.items[item];
         let tableRow = `
         <td class="order-column"><i class="fas fa-boxes"></i> ${oneBasedIndex}</td>
         <td class="name-column">${item}</td>
-        
+        <td class="best-price-column">Buy: ¢${globalItem.best_buy}</td>
+        <td class="data-table-item-best-sell-place" id="best-sell-planet"><i class="fas fa-globe"></i> ${globalItem.best_buy_place}</td>
+        <td class="best-price-column">Sell: ¢${globalItem.best_sell}</td>
+        <td class="data-table-item-best-buy-place" id="best-buy-planet"><i class="fas fa-globe"></i> ${globalItem.best_sell_place}</td>
         `;
         // let onClick = () => { alert("Clicked " + item) };
         let onClick = () => { onClickItem(item); };

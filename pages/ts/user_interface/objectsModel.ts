@@ -1,6 +1,7 @@
-import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml } from "./windowControllers.js";
+import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml } from "./windowControllers.js";
 import { setTravelingStarshipWindow } from "./spaceshipsViews.js";
 import { setOnePlanetWindow } from "./planetsViews.js";
+import { setOneItemWindow } from "./itemsViews.js";
 
 export { Item, Items, Planet, Planets, HeldItems, Starship, Starships, Game, generateModel };
 
@@ -46,9 +47,17 @@ interface Starship {
 interface Starships {
     [starship: string]: Starship,
 };
+interface WorldwideItem{
+    name: string,
+    id: number,
+    best_buy: number,
+    best_buy_place: string,
+    best_sell: number,
+    best_sell_place: string,
+}
 
 interface ItemList {
-    [item: string]: number,
+    [item: string]: WorldwideItem,
 }
 
 interface Game {
@@ -70,6 +79,24 @@ export function returnGame(game : Game){
     localStorage.setItem('game', JSON.stringify(game));
 }
 
+export function getBestPrice(game: Game, item: string) : WorldwideItem{
+    let id = (item in game.items) ? game.items[item].id : 0;
+    let prices : WorldwideItem = {'best_buy': -1, 'best_sell': 0, 'best_buy_place': "", 'best_sell_place': "", 'name': item, 'id': id};
+    for (let planet in game.planets){
+        if (item in game.planets[planet].available_items){
+            let itemVal = game.planets[planet].available_items[item];
+            if (itemVal.available > 0 && (prices.best_buy === -1 || itemVal.buy_price < prices.best_buy)){
+                prices.best_buy = itemVal.buy_price;
+                prices.best_buy_place = planet;
+            }
+            if (itemVal.sell_price > prices.best_sell){
+                prices.best_sell = itemVal.sell_price;
+                prices.best_sell_place = planet;
+            }
+        }
+    }
+    return prices;
+}
 
 function generateModel(initialState) {
     let game: Game = { game_duration: 0, time_passed: 0, credits: 0, items: Object(), planets: Object(), starships: Object(), player_name: "player" };
@@ -81,7 +108,8 @@ function generateModel(initialState) {
     for (let itemInd in initialState.items) {
         let item = initialState.items[itemInd];
         // indx++;
-        game.items[item] = Number(itemInd);
+        game.items[item] = getBestPrice(game, item);
+        game.items[item].id = Number(itemInd);
     }
     indx = 0;
     for (let planet in initialState['planets']) {
@@ -98,7 +126,7 @@ function generateModel(initialState) {
         for (let item in oldPlanetVal.available_items) {
             let itemValue = oldPlanetVal.available_items[item];
             game.planets[planet].available_items[item] = {
-                id: game.items[item],
+                id: game.items[item].id,
                 name: item,
                 buy_price: itemValue.buy_price,
                 sell_price: itemValue.sell_price,
@@ -123,7 +151,14 @@ function generateModel(initialState) {
         }
         game.planets[game.starships[starship].position].starships[starship] = true;
     }
+
     returnGame(game);
+    for (let itemInd in initialState.items) {
+        let item = initialState.items[itemInd];
+        game.items[item] = getBestPrice(game, item);
+    }
+    returnGame(game);
+
 }
 
 
@@ -157,7 +192,13 @@ export function buyItems(game: Game, starship: string, item: string, howmany: nu
     game.starships[starship] = ship;
     // alert("Buying element " + item + " for ship " + starship + "in " + howmany + " units for " + planetItems[item].buy_price * howmany + " credits");
 
+    game.items[item] = getBestPrice(game, item);
+    if (localStorage.getItem('current_item') == item){
+        setOneItemWindow(item);
+    }
+
     returnGame(game);
+    generateItemsHtml(game);
     generatePlanetsHtml(game);
     generateStarshipsHtml(game);
     generateGameHtml(game);
@@ -190,7 +231,13 @@ export function sellItems(game: Game, starship: string, item: string, howmany: n
     planetItems[item].available += howmany;
     ship.cargo_used -= howmany;
 
+    game.items[item] = getBestPrice(game, item);
+    if (localStorage.getItem('current_item') == item){
+        setOneItemWindow(item);
+    }
+
     returnGame(game);
+    generateItemsHtml(game);
     generatePlanetsHtml(game);
     generateStarshipsHtml(game);
     generateGameHtml(game);
@@ -220,6 +267,7 @@ export function travel(game: Game, starship: string, target: string) {
     ship.target_x = target_coords.x;
     ship.target_y = target_coords.y;
     ship.position = target;
+
 
     returnGame(game);
 

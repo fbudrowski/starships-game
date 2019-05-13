@@ -15,7 +15,7 @@ export function setOneItemWindow(itemName: string){
     let frameDocument = (<HTMLFrameElement>parent.document.getElementById("one-item-frame")).contentDocument;
     // alert(frameDocument);
     let game : Game = getGame();
-    let itemNo = game.items[itemName];
+    let itemNo = game.items[itemName].id;
     // alert("Gets going: starship is " + starship + " ship is " + ship + " shipid " + ship.id);
     interface PlanetEntry{
         name: string,
@@ -60,9 +60,9 @@ export function setOneItemWindow(itemName: string){
         data-item-id="${itemNo}">
             <td class="data-table-item-logo"><i class="fas fa-rocket"></i>${itemNo}</td>
             <td class="data-table-item-name" colspan="2">${itemName}</td>
-            <td class="data-table-item-best-buy" id="best-buy-price">Buy: ${minBuy.value}</td>
+            <td class="data-table-item-best-buy" id="best-buy-price">Buy: ¢${minBuy.value}</td>
             <td class="data-table-item-best-buy-place" id="best-buy-planet"><i class="fas fa-globe"></i> ${minBuy.planet}</td>
-            <td class="data-table-item-best-sell" id="best-sell-price">Sell: ${maxSell.value}</td>
+            <td class="data-table-item-best-sell" id="best-sell-price">Sell: ¢${maxSell.value}</td>
             <td class="data-table-item-best-sell-place" id="best-sell-planet"><i class="fas fa-globe"></i> ${maxSell.planet}</td>
         </tr>
         <tr class="multiline-data-table-entry">
@@ -84,8 +84,8 @@ export function setOneItemWindow(itemName: string){
         <td></td>
         <td>${planetEntry.name}</td>
         <td><i class="fas fa-globe"></i> ${planetEntry.available}</td>
-        <td colspan="2">Buy: ${planetEntry.buy_price}</td>
-        <td colspan="2">Sell: ${planetEntry.sell_price}</td>
+        <td colspan="2">Sell: ¢${planetEntry.sell_price}</td>
+        <td colspan="2">Buy: ¢${planetEntry.buy_price}</td>
         `;
         let onClick = () => {onClickPlanet(planetEntry.name);}
         addTableRow(frameDocument, tableBody, itemHtml, "multiline-data-table-entry", onClick);
