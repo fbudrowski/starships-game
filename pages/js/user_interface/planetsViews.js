@@ -6,7 +6,7 @@ export function togglePlanetsWindow() {
     toggleWindow(itemsWindow);
 }
 export function setOnePlanetWindow(planetName) {
-    localStorage.setItem("current_planet", planetName);
+    sessionStorage.setItem("current_planet", planetName);
     let frameDocument = parent.document.getElementById("one-planet-frame").contentDocument;
     // alert(frameDocument);
     let game = getGame();

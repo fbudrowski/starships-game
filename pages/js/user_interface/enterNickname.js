@@ -5,15 +5,15 @@ export function submitNickname() {
     // alert("Before: " + (document.getElementById("nickname-button") as HTMLButtonElement).innerText);
     document.getElementById("nickname-button").innerText = nickname;
     // alert("Your name is " + name);
-    localStorage.setItem('nickname', nickname);
-    localStorage.setItem('gameover', "no");
+    sessionStorage.setItem('nickname', nickname);
+    sessionStorage.setItem('gameover', "no");
     startGame();
 }
 export function requestNickname() {
-    localStorage.setItem('gameover', 'yes');
-    if (localStorage.getItem('gameover') === "no") {
+    sessionStorage.setItem('gameover', 'yes');
+    if (sessionStorage.getItem('gameover') === "no") {
         alert("Game not over");
-        let nickname = localStorage.getItem('nickname');
+        let nickname = sessionStorage.getItem('nickname');
         document.getElementById("nickname-button").innerText = nickname;
         startGame();
     }

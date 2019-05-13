@@ -11,7 +11,7 @@ export function toggleItemsWindow(){
 
 
 export function setOneItemWindow(itemName: string){
-    localStorage.setItem("current_item", itemName);
+    sessionStorage.setItem("current_item", itemName);
     let frameDocument = (<HTMLFrameElement>parent.document.getElementById("one-item-frame")).contentDocument;
     // alert(frameDocument);
     let game : Game = getGame();

@@ -6,7 +6,7 @@ export function toggleStarshipsWindow() {
     toggleWindow(starshipsWindow);
 }
 export function setTravelingStarshipWindow(starship) {
-    localStorage.setItem("current_starship", starship);
+    sessionStorage.setItem("current_starship", starship);
     let frameDocument = parent.document.getElementById("traveling-starship-frame").contentDocument;
     // alert(frameDocument);
     let game = getGame();

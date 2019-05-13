@@ -758,7 +758,10 @@ generatePlanetsHtml(model);
 // alert("Generated all");
 
 
-
+assignOnClickTo("pause-button", () => { objModel.pauseGame() });
+assignOnClickTo("normal-speed-button", () => { objModel.setNormalSpeed() });
+assignOnClickTo("double-speed-button", () => { objModel.setDoubleSpeed() });
+assignOnClickTo("quadruple-speed-button", () => { objModel.setQuadrupleSpeed() });
 assignOnClickTo("game-button", () => { untoggleWindows() });
 assignOnClickTo("starships-button", () => { toggleStarshipsWindow() });
 assignOnClickTo("planets-button", () => { togglePlanetsWindow() });

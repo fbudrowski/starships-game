@@ -12,10 +12,10 @@ export { generateModel };
 ;
 let gameLock = 0;
 export function getGame() {
-    return JSON.parse(localStorage.getItem('game'));
+    return JSON.parse(sessionStorage.getItem('game'));
 }
 export function returnGame(game) {
-    localStorage.setItem('game', JSON.stringify(game));
+    sessionStorage.setItem('game', JSON.stringify(game));
 }
 export function getBestPrice(game, item) {
     let id = (item in game.items) ? game.items[item].id : 0;
@@ -124,7 +124,7 @@ export function buyItems(game, starship, item, howmany) {
     game.starships[starship] = ship;
     // alert("Buying element " + item + " for ship " + starship + "in " + howmany + " units for " + planetItems[item].buy_price * howmany + " credits");
     game.items[item] = getBestPrice(game, item);
-    if (localStorage.getItem('current_item') == item) {
+    if (sessionStorage.getItem('current_item') == item) {
         setOneItemWindow(item);
     }
     returnGame(game);
@@ -158,7 +158,7 @@ export function sellItems(game, starship, item, howmany) {
     planetItems[item].available += howmany;
     ship.cargo_used -= howmany;
     game.items[item] = getBestPrice(game, item);
-    if (localStorage.getItem('current_item') == item) {
+    if (sessionStorage.getItem('current_item') == item) {
         setOneItemWindow(item);
     }
     returnGame(game);
@@ -216,8 +216,34 @@ function getDistance(game, planet1, planet2) {
 //returnGame(game);
 //     return true;
 // }
-export function tickTimeUnit(game) {
+export function tickTimeUnit() {
+    let speed = parseInt(sessionStorage.getItem('speed'));
+    let mult = parseInt(sessionStorage.getItem('real_time_units'));
+    sessionStorage.setItem('real_time_units', (mult + 1).toString());
+    if (speed === 0) {
+        return false;
+    }
+    else if (speed === 1) {
+        if (mult % 4 !== 0) {
+            return false;
+        }
+    }
+    else if (speed === 2) {
+        if (mult % 2 !== 0) {
+            return false;
+        }
+    }
+    let game = getGame();
     game.time_passed++;
+    if (game.time_passed > game.game_duration) {
+        return false;
+    }
+    if (game.time_passed === game.game_duration) {
+        stopGame();
+        let result = game.credits;
+        let name = sessionStorage.getItem('nickname');
+        sessionStorage.setItem('gameover', "yes");
+    }
     // alert("Tick " + game.time_passed);
     let hasChanged = false;
     let affectedStarship = Object();
@@ -237,8 +263,8 @@ export function tickTimeUnit(game) {
         }
     }
     returnGame(game);
-    let currentPlanet = localStorage.getItem("current_planet");
-    let currentStarship = localStorage.getItem("current_starship");
+    let currentPlanet = sessionStorage.getItem("current_planet");
+    let currentStarship = sessionStorage.getItem("current_starship");
     if (hasChanged) {
         for (let starshipName in affectedStarship) {
             let ship = game.starships[starshipName];
@@ -257,11 +283,25 @@ export function tickTimeUnit(game) {
     }
 }
 export function startGame() {
-    let intervalId = setInterval(() => { tickTimeUnit(getGame()); }, 1000);
-    localStorage.setItem('intervalId', intervalId.toString());
+    setNormalSpeed();
+    sessionStorage.setItem('real_time_units', (1).toString());
+    let intervalId = setInterval(() => { tickTimeUnit(); }, 250);
+    sessionStorage.setItem('intervalId', intervalId.toString());
 }
 export function stopGame() {
-    let intervalId = parseInt(localStorage.getItem('intervalId'));
+    let intervalId = parseInt(sessionStorage.getItem('intervalId'));
     clearInterval(intervalId);
+}
+export function pauseGame() {
+    sessionStorage.setItem('speed', (0).toString());
+}
+export function setNormalSpeed() {
+    sessionStorage.setItem('speed', (1).toString());
+}
+export function setDoubleSpeed() {
+    sessionStorage.setItem('speed', (2).toString());
+}
+export function setQuadrupleSpeed() {
+    sessionStorage.setItem('speed', (4).toString());
 }
 //# sourceMappingURL=objectsModel.js.map

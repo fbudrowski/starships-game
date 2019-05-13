@@ -8,7 +8,7 @@ export function togglePlanetsWindow() {
 }
 
 export function setOnePlanetWindow(planetName) {
-    localStorage.setItem("current_planet", planetName);
+    sessionStorage.setItem("current_planet", planetName);
 
     let frameDocument = (<HTMLFrameElement>parent.document.getElementById("one-planet-frame")).contentDocument;
     // alert(frameDocument);
