@@ -1,7 +1,8 @@
-import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml } from "./windowControllers.js";
+import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml, generateThankYouOverlayHtml } from "./windowControllers.js";
 import { setTravelingStarshipWindow } from "./spaceshipsViews.js";
 import { setOnePlanetWindow } from "./planetsViews.js";
 import { setOneItemWindow } from "./itemsViews.js";
+import { addToHallOfFame } from "./hallOfFame.js";
 
 export { Item, Items, Planet, Planets, HeldItems, Starship, Starships, Game, generateModel };
 
@@ -77,6 +78,7 @@ export function getGame(): Game {
 }
 export function returnGame(game : Game){
     sessionStorage.setItem('game', JSON.stringify(game));
+    localStorage.setItem('game',  JSON.stringify(game));
 }
 
 export function getBestPrice(game: Game, item: string) : WorldwideItem{
@@ -319,19 +321,22 @@ export function tickTimeUnit() {
     }
 
     let game: Game = getGame();
-    game.time_passed++;
     
     if (game.time_passed > game.game_duration){
         return false;
     }
     if (game.time_passed === game.game_duration){
+        alert("Game ends");
         stopGame();
+        alert ("Game ended");
         let result = game.credits;
         let name = sessionStorage.getItem('nickname');
-        sessionStorage.setItem('gameover', "yes");
-
+        localStorage.setItem('gameover', "yes");
+        generateThankYouOverlayHtml(name, result);
+        addToHallOfFame(name, result);
     }
 
+    game.time_passed++;
 
     // alert("Tick " + game.time_passed);
     let hasChanged = false;
@@ -399,5 +404,9 @@ export function setQuadrupleSpeed(){
     sessionStorage.setItem('speed', (4).toString());
 }
 
-
+export function startNewGame(){
+    stopGame(); 
+    localStorage.setItem('gameover', "yes");
+    window.location.reload();
+}
 

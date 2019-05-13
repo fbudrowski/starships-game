@@ -1,5 +1,5 @@
 import * as objModel from "./objectsModel.js";
-import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml, untoggleWindows } from "./windowControllers.js";
+import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml, untoggleWindows, generateHallOfFameHtml } from "./windowControllers.js";
 import { assignOnClickTo } from "./pageGenerate.js";
 import { toggleStarshipsWindow } from "./spaceshipsViews.js";
 import { togglePlanetsWindow } from "./planetsViews.js";
@@ -740,18 +740,21 @@ let initialStateString = `{
         }
     }
 }`;
-export let initialState = JSON.parse(initialStateString);
-objModel.generateModel(initialState);
-let model = objModel.getGame();
-// alert("Generating game");
-generateGameHtml(model);
-// alert("Generating items");
-generateItemsHtml(model);
-// alert("Generating starships");
-generateStarshipsHtml(model);
-// alert("Generating planets");
-generatePlanetsHtml(model);
-// alert("Generated all");
+generateHallOfFameHtml();
+if (!(localStorage.getItem('gameover') === "no")) {
+    let initialState = JSON.parse(initialStateString);
+    objModel.generateModel(initialState);
+    let model = objModel.getGame();
+    // alert("Generating game");
+    generateGameHtml(model);
+    // alert("Generating items");
+    generateItemsHtml(model);
+    // alert("Generating starships");
+    generateStarshipsHtml(model);
+    // alert("Generating planets");
+    generatePlanetsHtml(model);
+    // alert("Generated all");
+}
 assignOnClickTo("pause-button", () => { objModel.pauseGame(); });
 assignOnClickTo("normal-speed-button", () => { objModel.setNormalSpeed(); });
 assignOnClickTo("double-speed-button", () => { objModel.setDoubleSpeed(); });
@@ -762,4 +765,6 @@ assignOnClickTo("planets-button", () => { togglePlanetsWindow(); });
 assignOnClickTo("items-button", () => { toggleItemsWindow(); });
 assignOnClickTo("submitNicknameButton", () => { submitNickname(); });
 assignOnClickTo("play-button", () => { play(); });
+assignOnClickTo("new-game-button", () => { objModel.startNewGame(); });
+assignOnClickTo("play-again-button", () => { objModel.startNewGame(); });
 //# sourceMappingURL=generate.js.map

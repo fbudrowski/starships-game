@@ -4,6 +4,7 @@ import { onClickPlanet } from "./planetsViews.js";
 // import { onClickItem } from "./itemsViews.js";
 import { play } from "./play.js";
 import { onClickItem } from "./itemsViews.js";
+import { getHallOfFame } from "./hallOfFame.js";
 
 export function toggleWindow(window: HTMLElement) {
     let windows = document.getElementsByClassName("change-window");
@@ -222,4 +223,28 @@ export function generatePlanetsHtml(game: Game) {
             addTableRow(frameDocument, tableBody, tableRow, classes, onClick);
         }
     }
+}
+
+export function generateHallOfFameHtml() {
+    let hall = getHallOfFame();
+    let element = document.getElementById('hall-of-fame-table');
+    let elemCount = hall.best_players.length;
+    let innerHTML = "";
+    for (let i = 0; i < elemCount; i++) {
+        innerHTML += `<tr>
+        <td>${i + 1}.</td>
+        <td>${hall.best_players[i].name}</td>
+        <td>${hall.best_players[i].score}</td>
+        <td></td>`;
+        innerHTML += `</tr>`
+    }
+
+    element.innerHTML = innerHTML;
+}
+
+export function generateThankYouOverlayHtml(name: string, result: number){
+    let congrats = document.getElementById('end-game-congrats-p');
+    congrats.innerHTML = `Dear ${name}, you scored ${result}!`;
+    let overlay = document.getElementById('end-screen-overlay');
+    overlay.style.display = "block";
 }

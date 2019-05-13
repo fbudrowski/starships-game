@@ -22,7 +22,7 @@
         <header class="header">
             <nav class="navbar">
                 <div class="header-left header-item">
-                    <button class="header-left-button bold game-name-button">
+                    <button class="header-left-button bold game-name-button" id="new-game-button">
                         Space Dealer
                     </button>
                 </div>
@@ -32,12 +32,14 @@
                     </button>
                 </div>
                 <div class="header-left header-item">
-                    <button class="header-left-button starships-button"id="starships-button" onclick="toggleStarshipsWindow()">
+                    <button class="header-left-button starships-button" id="starships-button"
+                        onclick="toggleStarshipsWindow()">
                         <i class="fas fa-rocket"></i> Starships
                     </button>
                 </div>
                 <div class="header-left header-item">
-                    <button class="header-left-button planets-button"id="planets-button" onclick="togglePlanetsWindow()">
+                    <button class="header-left-button planets-button" id="planets-button"
+                        onclick="togglePlanetsWindow()">
                         <i class="fas fa-globe"></i> Planets
                     </button>
                 </div>
@@ -140,10 +142,10 @@
                 <p class="giant-text-logo">Space Dealer</p>
             </div>
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
-                <p>Hall of fame:</p>
+                <p>Hall of Fame:</p>
             </div>
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
-                <table class="hall-of-fame-table">
+                <table class="hall-of-fame-table" id="hall-of-fame-table">
                     <tr>
                         <td>1.</td>
                         <td>Jeff Bezos</td>
@@ -173,15 +175,26 @@
             </div>
             <div class="overlay-pseudoform-elem start-screen-pseudoform-elem">
                 <p>
-                    <button class="giant-button action-button" id="play-button"
-                        onclick="play();">Play!</button>
+                    <button class="giant-button action-button" id="play-button" onclick="play();">Play!</button>
                 </p>
             </div>
         </div>
     </div>
 
+    <div class="end-screen overlay" id="end-screen-overlay">
+        <div class="overlay-pseudoform" id="end-screen-pseudoform">
 
+            <div class="overlay-pseudoform-elem end-screen-pseudoform-elem">
+                <p id="end-game-congrats-p">Thank you for playing, player. You scored ....</p>
+            </div>
 
+            <div class="overlay-pseudoform-elem end-screen-pseudoform-elem">
+                <button class="giant-button action-button" id="play-again-button" onclick="play();">Play again!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/user_interface/hallOfFame.js" type="module"></script>
     <script src="js/user_interface/objectsModel.js" type="module"></script>
     <script src="js/user_interface/windowControllers.js" type="module"></script>
     <script src="js/user_interface/enterNickname.js" type="module"></script>
