@@ -1,19 +1,19 @@
-import { toggleWindow, toggleWindowFromChild, addTableRow, untoggleWindowsFromChild, generateStarshipsHtml } from "./windowControllers.js";
+import { toggleWindow, toggleWindowFromChild, addTableRow, generateStarshipsHtml } from "./windowControllers.js";
 import { getGame, Game, sellItems, buyItems, travel, returnGame } from "./objectsModel.js";
 import { getPlanetSelectionList } from "./planetsViews.js";
 
-export function toggleStarshipsWindow(){
+export function toggleStarshipsWindow() {
     let starshipsWindow = document.getElementById("starships-window");
     toggleWindow(starshipsWindow);
 }
 
 
-export function setTravelingStarshipWindow(starship: string){
+export function setTravelingStarshipWindow(starship: string) {
 
     sessionStorage.setItem("current_starship", starship);
     let frameDocument = (<HTMLFrameElement>parent.document.getElementById("traveling-starship-frame")).contentDocument;
     // alert(frameDocument);
-    let game : Game = getGame();
+    let game: Game = getGame();
     let ship = game.starships[starship];
     // alert("Gets going: starship is " + starship + " ship is " + ship + " shipid " + ship.id);
     let planetsOptions = getPlanetSelectionList(game);
@@ -24,9 +24,9 @@ export function setTravelingStarshipWindow(starship: string){
             <td class="data-table-ship-name">${ship.name}</td>
             <td class="data-table-ship-location">(${ship.target_x}, ${ship.target_y})</td>
             <td class="data-table-ship-load">${ship.cargo_used}/${ship.cargo_hold_size}</td>
-            <td class="data-table-planetary-location" colspan="4">${ship.travel_remaining_time === 0 ? 
-            "&darr" : "&rarr"}; <i class="fas fa-globe"></i> ${ship.travel_remaining_time === 0 ? 
-            "Staying in " + ship.position : "Comes in " + ship.travel_remaining_time + " s to " + ship.position}</td>
+            <td class="data-table-planetary-location" colspan="4">${ship.travel_remaining_time === 0 ?
+            "&darr" : "&rarr"}; <i class="fas fa-globe"></i> ${ship.travel_remaining_time === 0 ?
+                "Staying in " + ship.position : "Comes in " + ship.travel_remaining_time + " s to " + ship.position}</td>
         </tr>
         <tr class="multiline-data-table-entry">
             <td colspan="4"></td>
@@ -37,7 +37,7 @@ export function setTravelingStarshipWindow(starship: string){
             <td colspan="8" class="in-table-breaker">Items to trade:</td>
         </tr>
     `;
-    
+
 
     let tableBody = frameDocument.getElementById("one-starship-table-body");
     // alert(element);
@@ -46,18 +46,18 @@ export function setTravelingStarshipWindow(starship: string){
     let travelButton = frameDocument.getElementById("travel-confirmation-button");
     travelButton.onclick = () => {
         game = getGame();
-        let selection = <HTMLSelectElement> frameDocument.getElementById("planet-selection-list");
+        let selection = <HTMLSelectElement>frameDocument.getElementById("planet-selection-list");
         travel(game, starship, selection.value);
         // alert("Traveling to " + selection.value + " starship dist " + game.starships[starship].travel_remaining_time);
         returnGame(game);
         setTravelingStarshipWindow(starship);
         generateStarshipsHtml(game);
     }
-    
+
     let planetItems = game.planets[ship.position].available_items;
 
     let lastElem = null;
-    for (let planetItem in planetItems){
+    for (let planetItem in planetItems) {
         let realItem = planetItems[planetItem];
         let itemHtml = `
         <td></td>
@@ -72,21 +72,21 @@ export function setTravelingStarshipWindow(starship: string){
         addTableRow(frameDocument, tableBody, itemHtml, "multiline-data-table-entry");
         let sellButton = frameDocument.getElementById(`${realItem.name}-sell-button`);
         let buyButton = frameDocument.getElementById(`${realItem.name}-buy-button`);
-        sellButton.onclick = () => {sellItems(game, starship, planetItem, 1); game = getGame();}
-        buyButton.onclick = () => {buyItems(game, starship, planetItem, 1); game = getGame();}
+        sellButton.onclick = () => { sellItems(game, starship, planetItem, 1); game = getGame(); }
+        buyButton.onclick = () => { buyItems(game, starship, planetItem, 1); game = getGame(); }
     }
-    let lastChild = <HTMLElement> tableBody.lastChild;
+    let lastChild = <HTMLElement>tableBody.lastChild;
     lastChild.classList.add("multiline-data-table-entry-end");
 
 
 }
 
-export function toggleTravelingStarshipWindow(){
+export function toggleTravelingStarshipWindow() {
     let travelingStarshipWindow = window.parent.document.getElementById("traveling-starship-window");
     toggleWindowFromChild(travelingStarshipWindow);
 }
 
-export function onClickStarship(starship : string){
+export function onClickStarship(starship: string) {
     toggleTravelingStarshipWindow();
     setTravelingStarshipWindow(starship);
 }

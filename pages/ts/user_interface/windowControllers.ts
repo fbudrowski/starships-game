@@ -1,8 +1,6 @@
 import { Game } from "./objectsModel.js";
 import { onClickStarship } from "./spaceshipsViews.js";
 import { onClickPlanet } from "./planetsViews.js";
-// import { onClickItem } from "./itemsViews.js";
-import { play } from "./play.js";
 import { onClickItem } from "./itemsViews.js";
 import { getHallOfFame } from "./hallOfFame.js";
 

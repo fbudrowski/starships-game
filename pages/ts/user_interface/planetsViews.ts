@@ -1,6 +1,6 @@
 import { toggleWindowFromChild, toggleWindow, addTableRow } from "./windowControllers.js";
 import { Game, getGame } from "./objectsModel.js";
-import { toggleTravelingStarshipWindow, setTravelingStarshipWindow, onClickStarship } from "./spaceshipsViews.js";
+import { onClickStarship } from "./spaceshipsViews.js";
 
 export function togglePlanetsWindow() {
     let itemsWindow = document.getElementById("planets-window");
@@ -86,10 +86,10 @@ export function onClickPlanet(planet: string) {
 }
 
 
-export function getPlanetSelectionList(game: Game){
+export function getPlanetSelectionList(game: Game) {
     let answer = `<select id="planet-selection-list">
     `;
-    for(let planet in game.planets){
+    for (let planet in game.planets) {
         // alert("planet " + planet);
         answer += ` <option value="${planet}">${planet}</option>
         `;
