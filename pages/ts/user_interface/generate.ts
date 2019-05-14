@@ -7,7 +7,7 @@ import { toggleItemsWindow } from "./itemsViews.js";
 import { submitNickname } from "./enterNickname.js";
 import { play } from "./play.js";
 
-let initialStateString = `{
+export let initialStateString = `{
     "game_duration": 300,
     "initial_credits": 1984,
     "items": [

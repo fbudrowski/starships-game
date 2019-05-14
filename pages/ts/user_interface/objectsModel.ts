@@ -326,9 +326,9 @@ export function tickTimeUnit() {
         return false;
     }
     if (game.time_passed === game.game_duration){
-        alert("Game ends");
+        // alert("Game ends");
         stopGame();
-        alert ("Game ended");
+        // alert ("Game ended");
         let result = game.credits;
         let name = sessionStorage.getItem('nickname');
         localStorage.setItem('gameover', "yes");
@@ -352,7 +352,7 @@ export function tickTimeUnit() {
             ship.travel_remaining_time--;
             if (ship.travel_remaining_time === 0) {
                 game.planets[ship.position].starships[starshipName] = true;
-                alert("Ship " + ship.name + " has arrived in " + ship.position);
+                // alert("Ship " + ship.name + " has arrived in " + ship.position);
             }
             hasChanged = true;
         }

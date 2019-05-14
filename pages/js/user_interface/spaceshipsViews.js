@@ -41,7 +41,7 @@ export function setTravelingStarshipWindow(starship) {
         game = getGame();
         let selection = frameDocument.getElementById("planet-selection-list");
         travel(game, starship, selection.value);
-        alert("Traveling to " + selection.value + " starship dist " + game.starships[starship].travel_remaining_time);
+        // alert("Traveling to " + selection.value + " starship dist " + game.starships[starship].travel_remaining_time);
         returnGame(game);
         setTravelingStarshipWindow(starship);
         generateStarshipsHtml(game);
@@ -55,7 +55,7 @@ export function setTravelingStarshipWindow(starship) {
         <td>${realItem.name}</td>
         <td><i class="fas fa-rocket"></i> ${(planetItem in ship.held_items) ? ship.held_items[planetItem] : 0}</td>
         <td><i class="fas fa-globe"></i> ${realItem.available}</td>
-        <td><button class="action-button" id="${realItem.name}-sell-button" onclick="alert('Selling ' + '${realItem.name}')">Sell</button></td>
+        <td><button class="action-button" id="${realItem.name}-sell-button">Sell</button></td>
         <td>¢${realItem.sell_price}</td>
         <td>¢${realItem.buy_price}</td>
         <td><button class="action-button" id="${realItem.name}-buy-button">Buy</button></td>
