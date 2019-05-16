@@ -1,6 +1,6 @@
-import { toggleWindow, toggleWindowFromChild, addTableRow, generateStarshipsHtml } from "./windowControllers.js";
-import { getGame, Game, sellItems, buyItems, travel, returnGame } from "./objectsModel.js";
-import { getPlanetSelectionList } from "./planetsViews.js";
+import { toggleWindow, toggleWindowFromChild, addTableRow, generateStarshipsHtml } from "./windowControllers";
+import { getGame, Game, sellItems, buyItems, travel, returnGame } from "./objectsModel";
+import { getPlanetSelectionList } from "./planetsViews";
 
 export function toggleStarshipsWindow() {
     let starshipsWindow = document.getElementById("starships-window");

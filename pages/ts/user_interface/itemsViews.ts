@@ -1,6 +1,6 @@
-import { toggleWindow, toggleWindowFromChild, addTableRow } from "./windowControllers.js";
-import { Game, getGame, buyItems } from "./objectsModel.js";
-import { onClickPlanet } from "./planetsViews.js";
+import { toggleWindow, toggleWindowFromChild, addTableRow } from "./windowControllers";
+import { Game, getGame, buyItems } from "./objectsModel";
+import { onClickPlanet } from "./planetsViews";
 
 export function toggleItemsWindow(){
     let itemsWindow = document.getElementById("items-window");

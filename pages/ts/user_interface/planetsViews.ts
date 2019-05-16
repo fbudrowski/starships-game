@@ -1,6 +1,6 @@
-import { toggleWindowFromChild, toggleWindow, addTableRow } from "./windowControllers.js";
-import { Game, getGame } from "./objectsModel.js";
-import { onClickStarship } from "./spaceshipsViews.js";
+import { toggleWindowFromChild, toggleWindow, addTableRow } from "./windowControllers";
+import { Game, getGame } from "./objectsModel";
+import { onClickStarship } from "./spaceshipsViews";
 
 export function togglePlanetsWindow() {
     let itemsWindow = document.getElementById("planets-window");

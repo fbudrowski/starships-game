@@ -1,10 +1,10 @@
-import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml, generateThankYouOverlayHtml } from "./windowControllers.js";
-import { setTravelingStarshipWindow } from "./spaceshipsViews.js";
-import { setOnePlanetWindow } from "./planetsViews.js";
-import { setOneItemWindow } from "./itemsViews.js";
-import { addToHallOfFame } from "./hallOfFame.js";
+import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml, generateThankYouOverlayHtml } from "./windowControllers";
+import { setTravelingStarshipWindow } from "./spaceshipsViews";
+import { setOnePlanetWindow } from "./planetsViews";
+import { setOneItemWindow } from "./itemsViews";
+import { addToHallOfFame } from "./hallOfFame";
 
-export { Item, Items, Planet, Planets, HeldItems, Starship, Starships, Game, generateModel };
+export { Item, Items, Planet, Planets, HeldItems, Starship, Starships, Game};
 
 interface Item {
     id: number,
@@ -72,7 +72,6 @@ interface Game {
     player_name: string,
 }
 
-let gameLock = 0;
 export function getGame(): Game {
     return JSON.parse(sessionStorage.getItem('game'));
 }
@@ -100,7 +99,7 @@ export function getBestPrice(game: Game, item: string) : WorldwideItem{
     return prices;
 }
 
-function generateModel(initialState) {
+export function generateModelOnly(initialState): Game {
     let game: Game = { game_duration: 0, time_passed: 0, credits: 0, items: Object(), planets: Object(), starships: Object(), player_name: "player" };
     game.game_duration = initialState['game_duration'];
     game.time_passed = 0;
@@ -154,11 +153,15 @@ function generateModel(initialState) {
         game.planets[game.starships[starship].position].starships[starship] = true;
     }
 
-    returnGame(game);
     for (let itemInd in initialState.items) {
         let item = initialState.items[itemInd];
         game.items[item] = getBestPrice(game, item);
     }
+    return game;
+}
+
+export function generateModel(initialState){
+    let game = generateModelOnly(initialState);
     returnGame(game);
 
 }

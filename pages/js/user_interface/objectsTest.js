@@ -1,9 +1,9 @@
-import { getBestPrice, generateModel, getGame } from './objectsModel.js';
-import { initialStateString } from "./generate.js";
+import { getBestPrice, generateModelOnly } from "./objectsModel";
+import { initialStateString } from "./initString";
 import { expect } from "chai";
 import "mocha";
-generateModel(JSON.parse(initialStateString));
-let game = getGame();
+let game = generateModelOnly(JSON.parse(initialStateString));
+;
 describe("getBestPrice", () => {
     it("should return lowest prices for Złoto", () => {
         let bestPrices = getBestPrice(game, "Złoto");

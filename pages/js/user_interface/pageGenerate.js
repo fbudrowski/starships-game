@@ -1,4 +1,4 @@
-import { untoggleWindowsFromChild } from "./windowControllers.js";
+import { untoggleWindowsFromChild } from "./windowControllers";
 export function assignOnClickTo(id, func) {
     let element = document.getElementById(id);
     if (element !== null) {

@@ -1,6 +1,6 @@
 
-import { getGame, startGame, returnGame } from "./objectsModel.js";
-import { generateGameHtml, generateItemsHtml, generateStarshipsHtml, generatePlanetsHtml } from "./windowControllers.js";
+import { getGame, startGame, returnGame } from "./objectsModel";
+import { generateGameHtml, generateItemsHtml, generateStarshipsHtml, generatePlanetsHtml } from "./windowControllers";
 
 export function submitNickname() {
     document.getElementById("enter-nickname-overlay").style.display = "none";

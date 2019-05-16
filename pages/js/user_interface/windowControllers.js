@@ -1,7 +1,7 @@
-import { onClickStarship } from "./spaceshipsViews.js";
-import { onClickPlanet } from "./planetsViews.js";
-import { onClickItem } from "./itemsViews.js";
-import { getHallOfFame } from "./hallOfFame.js";
+import { onClickStarship } from "./spaceshipsViews";
+import { onClickPlanet } from "./planetsViews";
+import { onClickItem } from "./itemsViews";
+import { getHallOfFame } from "./hallOfFame";
 export function toggleWindow(window) {
     let windows = document.getElementsByClassName("change-window");
     let i = 0;
