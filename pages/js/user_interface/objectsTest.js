@@ -1,10 +1,12 @@
-import { getBestPrice, generateModelOnly, buyItems, getGame, sellItems } from "./objectsModel";
+import { getBestPrice, generateModelOnly, buyItems, sellItems } from "./objectsModel";
 import { initialStateString } from "./initString";
 import { expect } from "chai";
 import "mocha";
-let game = generateModelOnly(JSON.parse(initialStateString));
-;
 describe("getBestPrice", () => {
+    let game;
+    before(() => {
+        game = generateModelOnly(JSON.parse(initialStateString));
+    });
     it("should return lowest prices for Złoto", () => {
         let bestPrices = getBestPrice(game, "Złoto");
         expect(bestPrices.best_buy).to.equal(19);
@@ -21,27 +23,38 @@ describe("getBestPrice", () => {
     });
 });
 describe("buy", () => {
-    let oldCredits = game.credits;
-    let oldStorage = game.planets['Alderaan'].available_items['Dwimeryt'].available;
-    buyItems(game, 'Rocinante', 'Dwimeryt', 5);
-    game = getGame();
+    let game;
+    let oldCredits;
+    let oldStorage;
+    before(() => {
+        game = generateModelOnly(JSON.parse(initialStateString));
+        ;
+        oldCredits = game.credits;
+        oldStorage = game.planets['Alderaan'].available_items['Dwimeryt'].available;
+        buyItems(game, 'Rocinante', 'Dwimeryt', 5);
+    });
     it("should decrease money", () => {
-        expect(game.credits).to.equal(1984 - 5 * 12);
+        expect(game.credits).to.equal(1924);
     });
     it("should decrease city storage", () => {
         let nowStorage = game.planets['Alderaan'].available_items['Dwimeryt'].available;
         expect(nowStorage).to.equal(oldStorage - 5);
     });
-    sellItems(game, 'Rocinante', 'Dwimeryt', 1);
+});
+describe("buyandsell", () => {
+    let game;
+    before(() => {
+        game = generateModelOnly(JSON.parse(initialStateString));
+        buyItems(game, 'Rocinante', 'Dwimeryt', 5);
+        sellItems(game, 'Rocinante', 'Dwimeryt', 1);
+    });
     it("should increase money after returning", () => {
-        game = getGame();
         expect(game.credits).to.equal(1984 - 5 * 12 + 11);
     });
     it("should not allow to return more items that ship has", () => {
         let oldCredits = game.credits;
         let oldStorage = game.planets['Alderaan'].available_items['Dwimeryt'].available;
-        expect(sellItems(game, 'Rocinante', 'Dwimeryt', 1)).to.equal(false);
-        game = getGame();
+        expect(sellItems(game, 'Rocinante', 'Dwimeryt', 10)).to.equal(false);
         expect(game.credits).to.equal(oldCredits);
         expect(game.planets['Alderaan'].available_items['Dwimeryt'].available).to.equal(oldStorage);
     });

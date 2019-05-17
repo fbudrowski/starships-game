@@ -280,17 +280,15 @@ export function drawGame(game) {
         <p id="planet-minimap-wrapper-${planet}" 
         style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000;">
             <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 19000;" id="planet-minimap-${planet}">
-                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="0.5" fill="${Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" />
+                <circle cx="5" cy="5" r="4" stroke="black" id="planet-circle-${planet}" stroke-width="0.5" fill="${Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" />
             </svg>
         </p>`;
-        let miniwrapperName = `planet-minimap-wrapper-${planet}`;
+        let miniwrapperName = `planet-circle-${planet}`;
         // alert(miniwrapperName);
         let element = frameDocument.getElementById(miniwrapperName);
         // alert(element.);
         let fun = () => { onClickPlanet(planetName); };
         element.onclick = fun;
     }
-}
-export function drawShipMovement(shipName) {
 }
 //# sourceMappingURL=windowControllers.js.map

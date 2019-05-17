@@ -1,5 +1,5 @@
 import { toggleWindow, toggleWindowFromChild, addTableRow } from "./windowControllers";
-import { Game, getGame, buyItems } from "./objectsModel";
+import { Game, getGame, buyItemsWrapper } from "./objectsModel";
 import { onClickPlanet } from "./planetsViews";
 
 export function toggleItemsWindow(){

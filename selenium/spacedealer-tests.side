@@ -1,0 +1,250 @@
+{
+  "id": "77244c26-0c9b-4a7c-b95b-a06868b71cb1",
+  "version": "2.0",
+  "name": "spacedealer-tests",
+  "url": "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html",
+  "tests": [{
+    "id": "e88b8726-d613-4a7b-a9c8-5c2ff534fe9d",
+    "name": "nicknameAppearsInEdge",
+    "commands": [{
+      "id": "c21bfcf9-2d23-4a19-9597-4a88ee12e655",
+      "comment": "",
+      "command": "open",
+      "target": "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5143f07a-f649-469e-a1cb-6588bdeaf40b",
+      "comment": "",
+      "command": "runScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5df8f66a-bfa8-4bba-9531-30bc9a323334",
+      "comment": "",
+      "command": "open",
+      "target": "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8ea9f998-ee34-409f-a762-82cf7a6aca2c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1477x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2078c73e-a5fe-49f9-8f03-9807470c8d63",
+      "comment": "",
+      "command": "click",
+      "target": "id=play-button",
+      "targets": [
+        ["id=play-button", "id"],
+        ["css=#play-button", "css:finder"],
+        ["xpath=//button[@id='play-button']", "xpath:attributes"],
+        ["xpath=//div[@id='start-screen-pseudoform']/div[2]/p/button", "xpath:idRelative"],
+        ["xpath=//div[2]/p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Play!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "46e20b6f-a2ae-48f3-8fdc-e327891b1923",
+      "comment": "",
+      "command": "click",
+      "target": "id=enter-nickname-field",
+      "targets": [
+        ["id=enter-nickname-field", "id"],
+        ["css=#enter-nickname-field", "css:finder"],
+        ["xpath=//input[@id='enter-nickname-field']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "47e45ea8-ad59-4140-94f0-dcdebf213b2e",
+      "comment": "",
+      "command": "type",
+      "target": "id=enter-nickname-field",
+      "targets": [
+        ["id=enter-nickname-field", "id"],
+        ["css=#enter-nickname-field", "css:finder"],
+        ["xpath=//input[@id='enter-nickname-field']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "kapitan bomba"
+    }, {
+      "id": "a5afb110-46d2-4ce3-8ee1-9ee88030cb85",
+      "comment": "",
+      "command": "click",
+      "target": "id=submitNicknameButton",
+      "targets": [
+        ["id=submitNicknameButton", "id"],
+        ["css=#submitNicknameButton", "css:finder"],
+        ["xpath=//button[@id='submitNicknameButton']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "12bf6272-6145-459e-940f-5bddb6f371e3",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=nickname-button",
+      "targets": [],
+      "value": "kapitan bomba"
+    }, {
+      "id": "1cf430b7-ce39-4632-9e74-69242f452209",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a57209aa-71e6-49d1-b60a-bdb3ed171185",
+    "name": "afterClickingStarshipsInNavbarWindowStarshipOpens",
+    "commands": [{
+      "id": "bb07f6da-63e5-45d8-b68c-bfc8d5cf959f",
+      "comment": "",
+      "command": "open",
+      "target": "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "abc27e74-feaf-4799-8173-211142ea728d",
+      "comment": "",
+      "command": "runScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "936ea06d-d62d-4980-b04a-5a446f239000",
+      "comment": "",
+      "command": "open",
+      "target": "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "42534a51-efe7-4d7c-b301-e824a80c687d",
+      "comment": "",
+      "command": "click",
+      "target": "id=play-button",
+      "targets": [
+        ["id=play-button", "id"],
+        ["css=#play-button", "css:finder"],
+        ["xpath=//button[@id='play-button']", "xpath:attributes"],
+        ["xpath=//div[@id='start-screen-pseudoform']/div[2]/p/button", "xpath:idRelative"],
+        ["xpath=//div[2]/p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Play!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "734b34f0-6ab7-4765-8f0f-a716f2ed0ceb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.enter-nickname-pseudoform-elem:nth-child(3) > p",
+      "targets": [
+        ["css=.enter-nickname-pseudoform-elem:nth-child(3) > p", "css:finder"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[3]/p", "xpath:idRelative"],
+        ["xpath=//div[3]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84dcfef2-1911-475a-a22d-d354df4b7c80",
+      "comment": "",
+      "command": "click",
+      "target": "css=.enter-nickname-pseudoform-elem:nth-child(3) > p",
+      "targets": [
+        ["css=.enter-nickname-pseudoform-elem:nth-child(3) > p", "css:finder"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[3]/p", "xpath:idRelative"],
+        ["xpath=//div[3]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "047380b0-22ff-4366-bf0f-311cb7a4feaa",
+      "comment": "",
+      "command": "click",
+      "target": "id=enter-nickname-field",
+      "targets": [
+        ["id=enter-nickname-field", "id"],
+        ["css=#enter-nickname-field", "css:finder"],
+        ["xpath=//input[@id='enter-nickname-field']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "862a6ec2-16ec-45d3-b5dc-3d55071ee928",
+      "comment": "",
+      "command": "type",
+      "target": "id=enter-nickname-field",
+      "targets": [
+        ["id=enter-nickname-field", "id"],
+        ["css=#enter-nickname-field", "css:finder"],
+        ["xpath=//input[@id='enter-nickname-field']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "kapitan bomba"
+    }, {
+      "id": "16414156-7d3a-4a0d-bbed-fab4c11795a1",
+      "comment": "",
+      "command": "click",
+      "target": "id=submitNicknameButton",
+      "targets": [
+        ["id=submitNicknameButton", "id"],
+        ["css=#submitNicknameButton", "css:finder"],
+        ["xpath=//button[@id='submitNicknameButton']", "xpath:attributes"],
+        ["xpath=//div[@id='enter-nickname-pseudoform']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e9ebc63-459d-44d1-af6a-77d054ce9bc1",
+      "comment": "",
+      "command": "click",
+      "target": "id=starships-button",
+      "targets": [
+        ["id=starships-button", "id"],
+        ["css=#starships-button", "css:finder"],
+        ["xpath=//button[@id='starships-button']", "xpath:attributes"],
+        ["xpath=//nav[@id='navbar']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Starships')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "94dfbb3b-3a2f-4a90-a250-a2bd5bf4942b",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "21c13535-4a22-4242-92aa-bffc0a62f773",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=Axiom-name-field",
+      "targets": [],
+      "value": "Axiom"
+    }]
+  }],
+  "suites": [{
+    "id": "b7f5ee5f-38c8-43de-9ec2-9c5d87699605",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://students.mimuw.edu.pl/", "http://students.mimuw.edu.pl/~fb394112/space_dealer/game.html"],
+  "plugins": []
+}

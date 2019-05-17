@@ -172,9 +172,7 @@ export function generateModel(initialState){
 
 }
 
-
-export function buyItems(game: Game, starship: string, item: string, howmany: number) {
-    game = getGame();
+export function buyItems(game: Game, starship: string, item: string, howmany: number){
     if (!(starship in game.starships)) {
         return false;
     }
@@ -204,6 +202,18 @@ export function buyItems(game: Game, starship: string, item: string, howmany: nu
     // alert("Buying element " + item + " for ship " + starship + "in " + howmany + " units for " + planetItems[item].buy_price * howmany + " credits");
 
     game.items[item] = getBestPrice(game, item);
+    return true;
+}
+
+
+export function buyItemsWrapper(game: Game, starship: string, item: string, howmany: number) {
+    game = getGame();
+    
+    let value = buyItems(game, starship, item, howmany);
+    if (value === false){
+        return false;
+    }
+
     if (sessionStorage.getItem('current_item') == item){
         setOneItemWindow(item);
     }
@@ -217,15 +227,13 @@ export function buyItems(game: Game, starship: string, item: string, howmany: nu
     return true;
 };
 
-
-
 export function sellItems(game: Game, starship: string, item: string, howmany: number) {
-    game = getGame();
+
     if (!(starship in game.starships)) {
         return false;
     }
     let ship = game.starships[starship];
-    if (ship.travel_remaining_time > 0 || !(item in ship.held_items) || ship.held_items[item] <= 0) {
+    if (ship.travel_remaining_time > 0 || !(item in ship.held_items) || ship.held_items[item] < howmany) {
         return false;
     }
     let planet = ship.position;
@@ -243,6 +251,16 @@ export function sellItems(game: Game, starship: string, item: string, howmany: n
     ship.cargo_used -= howmany;
 
     game.items[item] = getBestPrice(game, item);
+    return true;
+}
+
+export function sellItemsWrapper(game: Game, starship: string, item: string, howmany: number) {
+    game = getGame();
+    let success = sellItems(game, starship, item, howmany);
+    if (success === false){
+        return false;
+    }
+
     if (sessionStorage.getItem('current_item') == item){
         setOneItemWindow(item);
     }
@@ -256,7 +274,7 @@ export function sellItems(game: Game, starship: string, item: string, howmany: n
     return true;
 };
 
-export function travel(game: Game, starship: string, target: string) {
+export function travel(game: Game, starship: string, target: string){
     if (!(starship in game.starships) || !(target in game.planets)) {
         return false;
     }
@@ -284,6 +302,14 @@ export function travel(game: Game, starship: string, target: string) {
     ship.position = target;
 
 
+}
+
+export function travelWrapper(game: Game, starship: string, target: string) {
+    let go = travel(game, starship, target);
+    if (go === false){
+        return false;
+    }
+
     returnGame(game);
 
     generatePlanetsHtml(game);
@@ -299,42 +325,8 @@ function getDistance(game: Game, planet1: string, planet2: string) {
     return Math.sqrt(diffx * diffx + diffy * diffy);
 }
 
-// export function moveToAnotherPlanet(game: Game, starship: string, targetPlanet: string) {
-//     if (!(starship in game.starships) || !(targetPlanet in game.planets) || game.starships[starship].travel_remaining_time > 0) {
-//         return false;
-//     }
-//     let ship = game.starships[starship];
-//     let distance = getDistance(game, ship.position, targetPlanet);
-//     delete game.planets[ship.position].starships[ship.name];
-//     game.planets[targetPlanet].starships[ship.name] = true;
+export function tickTimeUnit(game: Game, affectedStarships: Object){
 
-//     ship.position = targetPlanet;
-//     ship.travel_remaining_time = Math.round(distance);
-//     ship.target_x = game.planets[targetPlanet].x;
-//     ship.target_y = game.planets[targetPlanet].y;
-
-//returnGame(game);
-//     return true;
-// }
-
-export function tickTimeUnit() {
-    let speed = parseInt(sessionStorage.getItem('speed'));
-    let mult = parseInt(sessionStorage.getItem('real_time_units'));
-    sessionStorage.setItem('real_time_units', (mult + 1).toString());
-    if (speed === 0){
-        return false;
-    } else if (speed === 1){
-        if (mult % 4 !== 0){
-            return false;
-        }
-    } else if (speed === 2){
-        if (mult % 2 !== 0){
-            return false;
-        }
-    }
-
-    let game: Game = getGame();
-    
     if (game.time_passed > game.game_duration){
         return false;
     }
@@ -353,7 +345,6 @@ export function tickTimeUnit() {
 
     // alert("Tick " + game.time_passed);
     let hasChanged = false;
-    let affectedStarship = Object();
     for (let starshipName in game.starships) {
         let ship = game.starships[starshipName];
         // if (ship.travel_remaining_time % 4 === 1){
@@ -361,7 +352,7 @@ export function tickTimeUnit() {
         // } 
             
         if (ship.travel_remaining_time > 0) {
-            affectedStarship[starshipName] = true;
+            affectedStarships[starshipName] = true;
             ship.travel_remaining_time--;
             if (ship.travel_remaining_time === 0) {
                 game.planets[ship.position].starships[starshipName] = true;
@@ -370,24 +361,50 @@ export function tickTimeUnit() {
             hasChanged = true;
         }
     }
+}
+
+export function tickTimeUnitWrapper() {
+    let speed = parseInt(sessionStorage.getItem('speed'));
+    let mult = parseInt(sessionStorage.getItem('real_time_units'));
+    sessionStorage.setItem('real_time_units', (mult + 1).toString());
+    if (speed === 0){
+        return false;
+    } else if (speed === 1){
+        if (mult % 4 !== 0){
+            return false;
+        }
+    } else if (speed === 2){
+        if (mult % 2 !== 0){
+            return false;
+        }
+    }
+
+    let game: Game = getGame();
+
+    let hasChanged = false;
+    let affectedStarships = new Object();
+
+    let go = tickTimeUnit(game, affectedStarships);
+    if (go === false){
+        return false;
+    }
+    
     returnGame(game);
 
     let currentPlanet = sessionStorage.getItem("current_planet");
     let currentStarship = sessionStorage.getItem("current_starship");
 
-    if (hasChanged){
-        for (let starshipName in affectedStarship) {
-            let ship = game.starships[starshipName];
-            if (starshipName === currentStarship) {
-                setTravelingStarshipWindow(starshipName);
-            }
-            if (ship.position === currentPlanet) {
-                setOnePlanetWindow(currentPlanet);
-            }
+    for (let starshipName in affectedStarships) {
+        let ship = game.starships[starshipName];
+        if (starshipName === currentStarship) {
+            setTravelingStarshipWindow(starshipName);
+        }
+        if (ship.position === currentPlanet) {
+            setOnePlanetWindow(currentPlanet);
         }
     }
     generateGameHtml(game);
-    if (hasChanged) {
+    if (Object.keys(affectedStarships).length !== 0) {
         generateStarshipsHtml(game);
         generatePlanetsHtml(game);
     }
@@ -396,7 +413,7 @@ export function tickTimeUnit() {
 export function startGame(){
     setNormalSpeed();
     sessionStorage.setItem('real_time_units', (1).toString());
-    let intervalId = setInterval(() => {tickTimeUnit();}, 250);
+    let intervalId = setInterval(() => {tickTimeUnitWrapper();}, 250);
     sessionStorage.setItem('intervalId', intervalId.toString());
 }
 export function stopGame(){
