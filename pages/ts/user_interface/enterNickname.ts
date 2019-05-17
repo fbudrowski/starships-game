@@ -3,6 +3,7 @@ import { getGame, startGame, returnGame } from "./objectsModel";
 import { generateGameHtml, generateItemsHtml, generateStarshipsHtml, generatePlanetsHtml } from "./windowControllers";
 
 export function submitNickname() {
+    document.getElementById('navbar').classList.add('slide-in-left');
     document.getElementById("enter-nickname-overlay").style.display = "none";
     let nickname = (document.getElementById("enter-nickname-field") as HTMLInputElement).value;
     // alert("Before: " + (document.getElementById("nickname-button") as HTMLButtonElement).innerText);
@@ -22,12 +23,14 @@ export function requestNickname() {
         returnGame(JSON.parse(localStorage.getItem('game')));
         let game = getGame();
 
+        document.getElementById('navbar').classList.add('slide-in-left');
         generateGameHtml(game);
         generateItemsHtml(game);
         generateStarshipsHtml(game);
         generatePlanetsHtml(game);
         startGame();
     } else{
+        document.getElementById("enter-nickname-overlay").classList.add('slide-in-top');
         document.getElementById("enter-nickname-overlay").style.display = "block";
     }
 }

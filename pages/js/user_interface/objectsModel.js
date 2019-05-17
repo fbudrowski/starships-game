@@ -83,6 +83,9 @@ export function generateModelOnly(initialState) {
             target_x: game.planets[oldStarshipVal.position].x,
             target_y: game.planets[oldStarshipVal.position].y,
             travel_remaining_time: 0,
+            starting_x: game.planets[oldStarshipVal.position].x,
+            starting_y: game.planets[oldStarshipVal.position].y,
+            total_travel_time: 0,
             held_items: Object(),
         };
         game.planets[game.starships[starship].position].starships[starship] = true;
@@ -189,6 +192,9 @@ export function travel(game, starship, target) {
     let distancesq = (ship.target_x - target_coords.x) * (ship.target_x - target_coords.x)
         + (ship.target_y - target_coords.y) * (ship.target_y - target_coords.y);
     let distance = Math.round(Math.sqrt(distancesq));
+    ship.starting_x = ship.target_x;
+    ship.starting_y = ship.starting_y;
+    ship.total_travel_time = distance;
     ship.travel_remaining_time = distance;
     ship.target_x = target_coords.x;
     ship.target_y = target_coords.y;

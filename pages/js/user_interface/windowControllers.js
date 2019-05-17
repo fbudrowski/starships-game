@@ -9,6 +9,10 @@ export function toggleWindow(window) {
         for (i = 0; i < windows.length; i++) {
             windows[i].style.display = "none";
         }
+        if (window.classList.contains('slide-in-top')) {
+            window.classList.remove('slide-in-top');
+        }
+        window.classList.add('slide-in-top');
         window.style.display = "block";
     }
     else {
@@ -25,6 +29,10 @@ export function toggleWindowFromChild(window) {
         for (i = 0; i < windows.length; i++) {
             windows[i].style.display = "none";
         }
+        if (window.classList.contains('slide-in-top')) {
+            window.classList.remove('slide-in-top');
+        }
+        window.classList.add('slide-in-top');
         window.style.display = "block";
     }
     else {
@@ -219,6 +227,11 @@ export function generateHallOfFameHtml() {
         <td></td>`;
         innerHTML += `</tr>`;
     }
+    if (elemCount < 10) {
+        for (let i = elemCount; i < 10; i++) {
+            innerHTML += `<tr><td>NA</td><td></td><td></td></tr>`;
+        }
+    }
     element.innerHTML = innerHTML;
 }
 export function generateThankYouOverlayHtml(name, result) {
@@ -226,5 +239,58 @@ export function generateThankYouOverlayHtml(name, result) {
     congrats.innerHTML = `Dear ${name}, you scored ${result}!`;
     let overlay = document.getElementById('end-screen-overlay');
     overlay.style.display = "block";
+}
+export function drawGame(game) {
+    let outside = document.getElementById("main-field");
+    // alert(outside)
+    let frameDocument = outside.contentDocument;
+    // alert(frameDocument);
+    let map = frameDocument.getElementById("real-map");
+    // alert("map " + map);
+    map.innerHTML = "";
+    for (let ship in game.starships) {
+        let starship = game.starships[ship];
+        let row = starship.target_x;
+        let column = starship.target_y;
+        if (starship.total_travel_time) {
+            let timeFraction = starship.travel_remaining_time / starship.total_travel_time;
+            row = starship.target_x + timeFraction * (starship.starting_x - starship.target_x);
+            column = starship.target_y + timeFraction * (starship.starting_y - starship.target_y);
+        }
+        map.innerHTML += `
+        <p id="ship-minimap-wrapper-${ship}" 
+        style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000; 
+        ${starship.travel_remaining_time ? '' : ''}">
+            <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 9000;" id="ship-minimap-${ship}">
+                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="0.5" fill="red" />
+            </svg>
+        </p>`;
+        let miniwrapperName = `ship-minimap-wrapper-${ship}`;
+        // alert(miniwrapperName);
+        let element = frameDocument.getElementById(miniwrapperName);
+        // alert(element.);
+        let fun = () => { onClickStarship(ship); };
+        element.onclick = fun;
+    }
+    for (let planetName in game.planets) {
+        let planet = game.planets[planetName];
+        let row = planet.x;
+        let column = planet.y;
+        map.innerHTML += `
+        <p id="planet-minimap-wrapper-${planet}" 
+        style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000;">
+            <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 19000;" id="planet-minimap-${planet}">
+                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="0.5" fill="${Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" />
+            </svg>
+        </p>`;
+        let miniwrapperName = `planet-minimap-wrapper-${planet}`;
+        // alert(miniwrapperName);
+        let element = frameDocument.getElementById(miniwrapperName);
+        // alert(element.);
+        let fun = () => { onClickPlanet(planetName); };
+        element.onclick = fun;
+    }
+}
+export function drawShipMovement(shipName) {
 }
 //# sourceMappingURL=windowControllers.js.map
