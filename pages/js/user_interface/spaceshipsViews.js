@@ -58,7 +58,7 @@ export function setTravelingStarshipWindow(starship) {
         <td><button class="action-button" id="${realItem.name}-sell-button"${ship.travel_remaining_time === 0 && ship.held_items[planetItem] !== 0 ? '' : 'disabled'}>Sell</button></td>
         <td>¢${realItem.sell_price}</td>
         <td>¢${realItem.buy_price}</td>
-        <td><button class="action-button" id="${realItem.name}-buy-button" ${ship.travel_remaining_time === 0 && realItem.available !== 0 ? '' : 'disabled'}>Buy</button></td>
+        <td><button class="action-button" id="${realItem.name}-buy-button" ${ship.travel_remaining_time === 0 && realItem.available !== 0 && realItem.buy_price <= game.credits ? '' : 'disabled'}>Buy</button></td>
         `;
         addTableRow(frameDocument, tableBody, itemHtml, "multiline-data-table-entry");
         let sellButton = frameDocument.getElementById(`${realItem.name}-sell-button`);

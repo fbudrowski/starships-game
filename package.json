@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && npx mocha -r ts-node/register pages/ts/user_interface/objectsTest.ts"
   },
   "repository": {
     "type": "git",

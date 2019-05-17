@@ -242,11 +242,8 @@ export function generateThankYouOverlayHtml(name, result) {
 }
 export function drawGame(game) {
     let outside = document.getElementById("main-field");
-    // alert(outside)
     let frameDocument = outside.contentDocument;
-    // alert(frameDocument);
     let map = frameDocument.getElementById("real-map");
-    // alert("map " + map);
     map.innerHTML = "";
     for (let ship in game.starships) {
         let starship = game.starships[ship];
@@ -262,33 +259,25 @@ export function drawGame(game) {
         style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000; 
         ${starship.travel_remaining_time ? '' : ''}">
             <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 9000;" id="ship-minimap-${ship}">
-                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="0.5" fill="red" />
+                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="0.5" fill="red"onclick = "
+                sessionStorage.setItem('currentShip', '${ship}');
+                sessionStorage.setItem('changeNow', 'one-ship');"/>
             </svg>
         </p>`;
-        let miniwrapperName = `ship-minimap-wrapper-${ship}`;
-        // alert(miniwrapperName);
-        let element = frameDocument.getElementById(miniwrapperName);
-        // alert(element.);
-        let fun = () => { onClickStarship(ship); };
-        element.onclick = fun;
     }
     for (let planetName in game.planets) {
         let planet = game.planets[planetName];
         let row = planet.x;
         let column = planet.y;
         map.innerHTML += `
-        <p id="planet-minimap-wrapper-${planet}" 
+        <p id="planet-minimap-wrapper-${planetName}" 
         style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000;">
-            <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 19000;" id="planet-minimap-${planet}">
-                <circle cx="5" cy="5" r="4" stroke="black" id="planet-circle-${planet}" stroke-width="0.5" fill="${Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" />
+            <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 14000;" id="planet-minimap-${planetName}">
+                <circle cx="5" cy="5" r="4" stroke="black" id="planet-circle-${planetName}" stroke-width="0.5" fill="${Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" onclick="
+                    sessionStorage.setItem('currentPlanet', '${planetName}');
+                    sessionStorage.setItem('changeNow', 'one-planet');"/>
             </svg>
         </p>`;
-        let miniwrapperName = `planet-circle-${planet}`;
-        // alert(miniwrapperName);
-        let element = frameDocument.getElementById(miniwrapperName);
-        // alert(element.);
-        let fun = () => { onClickPlanet(planetName); };
-        element.onclick = fun;
     }
 }
 //# sourceMappingURL=windowControllers.js.map

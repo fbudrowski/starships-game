@@ -1,6 +1,6 @@
-import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml, generateThankYouOverlayHtml } from "./windowControllers";
-import { setTravelingStarshipWindow } from "./spaceshipsViews";
-import { setOnePlanetWindow } from "./planetsViews";
+import { generatePlanetsHtml, generateStarshipsHtml, generateGameHtml, generateItemsHtml, generateThankYouOverlayHtml, drawGame } from "./windowControllers";
+import { setTravelingStarshipWindow, onClickStarship } from "./spaceshipsViews";
+import { setOnePlanetWindow, onClickPlanet } from "./planetsViews";
 import { setOneItemWindow } from "./itemsViews";
 import { addToHallOfFame } from "./hallOfFame";
 
@@ -364,6 +364,19 @@ export function tickTimeUnit(game: Game, affectedStarships: Object){
 }
 
 export function tickTimeUnitWrapper() {
+    if (sessionStorage.getItem('changeNow') === 'one-planet'){
+        sessionStorage.removeItem('changeNow');
+        let newPlanet = sessionStorage.getItem('currentPlanet');
+        onClickPlanet(newPlanet);
+    }
+    if (sessionStorage.getItem('changeNow') === 'one-ship'){
+        sessionStorage.removeItem('changeNow');
+        let newShip = sessionStorage.getItem('currentShip');
+        onClickStarship(newShip);
+    }
+    drawGame(getGame());
+
+
     let speed = parseInt(sessionStorage.getItem('speed'));
     let mult = parseInt(sessionStorage.getItem('real_time_units'));
     sessionStorage.setItem('real_time_units', (mult + 1).toString());
