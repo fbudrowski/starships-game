@@ -1,5 +1,5 @@
 import * as objModel from "./objectsModel";
-import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml, untoggleWindows, generateHallOfFameHtml } from "./windowControllers";
+import { generateGameHtml, generateStarshipsHtml, generatePlanetsHtml, generateItemsHtml, untoggleWindows, generateHallOfFameHtml, setUpGame } from "./windowControllers";
 import { assignOnClickTo } from "./pageGenerate";
 import { toggleStarshipsWindow } from "./spaceshipsViews";
 import { togglePlanetsWindow } from "./planetsViews";
@@ -13,19 +13,8 @@ generateHallOfFameHtml();
 
 if (!(localStorage.getItem('gameover') === "no")){
 
-    let initialState = JSON.parse(initialStateString);
-    objModel.generateModel(initialState);
-    let model = objModel.getGame();
-    
-    // alert("Generating game");
-    generateGameHtml(model);
-    // alert("Generating items");
-    generateItemsHtml(model);
-    // alert("Generating starships");
-    generateStarshipsHtml(model);
-    // alert("Generating planets");
-    generatePlanetsHtml(model);
-    // alert("Generated all");
+
+    setUpGame(initialStateString);
 }
 
 

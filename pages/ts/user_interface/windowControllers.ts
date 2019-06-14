@@ -1,4 +1,4 @@
-import { Game } from "./objectsModel";
+import { Game, generateModel, getGame } from "./objectsModel";
 import { onClickStarship } from "./spaceshipsViews";
 import { onClickPlanet } from "./planetsViews";
 import { onClickItem } from "./itemsViews";
@@ -304,4 +304,19 @@ export function drawGame(game : Game){
         </p>`;
     }
 }
+export function setUpGame(initialStateString : string){
 
+    let initialState = JSON.parse(initialStateString);
+        generateModel(initialState);
+        let model = getGame();
+        
+        // alert("Generating game");
+        generateGameHtml(model);
+        // alert("Generating items");
+        generateItemsHtml(model);
+        // alert("Generating starships");
+        generateStarshipsHtml(model);
+        // alert("Generating planets");
+        generatePlanetsHtml(model);
+        // alert("Generated all");
+}
