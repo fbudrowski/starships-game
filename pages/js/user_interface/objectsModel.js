@@ -343,4 +343,156 @@ export function startNewGame() {
     localStorage.setItem('gameover', "yes");
     window.location.reload();
 }
+export function getBestDeal() {
+    let game = getGame();
+    let bestResult = -1;
+    let bestShip = "";
+    let bestPlanet = "";
+    let bestFirstSells = [];
+    let bestBuySells = [];
+    let bestLastSells = [];
+    for (let shipName in game.starships) {
+        let starship = game.starships[shipName];
+        if (starship.travel_remaining_time > 0)
+            continue;
+        let oldPlanet = game.planets[starship.position];
+        let curResult = 0;
+        let curShip = shipName;
+        let curPlanet = starship.position;
+        let curFirstSells = [];
+        let curBuySells = [];
+        let curLastSells = [];
+        console.log("Advice for " + shipName);
+        for (let item in starship.held_items) {
+            if (oldPlanet.available_items[item] !== undefined) {
+                curResult += starship.held_items[item] * oldPlanet.available_items[item].sell_price;
+                curFirstSells.push({ name: name, howmany: starship.held_items[item] });
+            }
+        }
+        if (curResult > bestResult) {
+            bestResult = curResult;
+            bestShip = curShip;
+            bestPlanet = curPlanet;
+            bestFirstSells = curFirstSells;
+            bestBuySells = curBuySells;
+            bestLastSells = curLastSells;
+        }
+        for (let newPlanetName in game.planets) {
+            curResult = 0;
+            curShip = shipName;
+            curPlanet = newPlanetName;
+            curFirstSells = [];
+            curBuySells = [];
+            curLastSells = [];
+            if (newPlanetName === starship.position) {
+                continue;
+            }
+            let remainingSpace = starship.cargo_hold_size - starship.cargo_used;
+            let remainingCredits = game.credits;
+            let newPlanet = game.planets[newPlanetName];
+            let curPotentialBuySells = [];
+            for (let item in game.items) {
+                let oldPlanetItem = oldPlanet.available_items[item];
+                let newPlanetItem = newPlanet.available_items[item];
+                if (oldPlanetItem === undefined) {
+                    if (newPlanetItem === undefined)
+                        continue;
+                    // Selling on newPlanet
+                    let count = (starship.held_items[item] || 0);
+                    if (count > 0) {
+                        curResult += count * newPlanetItem.sell_price;
+                        curLastSells.push({ name: item, howmany: count });
+                    }
+                }
+                else if (newPlanetItem === undefined) {
+                    // Selling on oldPlanet
+                    let count = (starship.held_items[item] || 0);
+                    if (count > 0) {
+                        curResult += count * oldPlanetItem.sell_price;
+                        remainingSpace += count;
+                        remainingCredits += count * oldPlanetItem.sell_price;
+                        curFirstSells.push({ name: item, howmany: count });
+                    }
+                }
+                else {
+                    // Can buy&sell on both planets
+                    let onBoardCount = (starship.held_items[item] || 0);
+                    if (oldPlanetItem.sell_price >= newPlanetItem.sell_price) {
+                        // Better to sell right away
+                        if (onBoardCount > 0) {
+                            curResult += onBoardCount * oldPlanetItem.sell_price;
+                            remainingSpace += onBoardCount;
+                            remainingCredits += onBoardCount * oldPlanetItem.sell_price;
+                            curFirstSells.push({ name: item, howmany: onBoardCount });
+                        }
+                    }
+                    else {
+                        // Sell remainder
+                        if (onBoardCount > 0) {
+                            curResult += onBoardCount * newPlanetItem.sell_price;
+                            curLastSells.push({ name: item, howmany: onBoardCount });
+                        }
+                        // And add buy&sell to list
+                        if (oldPlanetItem.available > 0 && newPlanetItem.sell_price > oldPlanetItem.buy_price) {
+                            curPotentialBuySells.push({
+                                name: item, upfront_cost: oldPlanetItem.buy_price, profit: newPlanetItem.sell_price - oldPlanetItem.buy_price,
+                                count: oldPlanetItem.available
+                            });
+                        }
+                    }
+                }
+            }
+            curPotentialBuySells.sort((a, b) => {
+                if (a.profit > b.profit)
+                    return -1;
+                if (a.profit < b.profit)
+                    return 1;
+                if (a.upfront_cost < b.upfront_cost)
+                    return -1;
+                return 1;
+            });
+            console.log(curPotentialBuySells);
+            for (let bs of curPotentialBuySells) {
+                let maxQuantity = Math.min(Math.floor(remainingCredits / bs.upfront_cost), remainingSpace, bs.count);
+                if (maxQuantity <= 0) {
+                    continue;
+                }
+                remainingCredits -= bs.upfront_cost * maxQuantity;
+                remainingSpace -= maxQuantity;
+                curResult += maxQuantity * bs.profit;
+                curBuySells.push({ name: bs.name, howmany: maxQuantity });
+            }
+            if (curResult > bestResult) {
+                bestResult = curResult;
+                bestShip = curShip;
+                bestPlanet = curPlanet;
+                bestFirstSells = curFirstSells;
+                bestBuySells = curBuySells;
+                bestLastSells = curLastSells;
+            }
+        }
+    }
+    let answerString = "You can earn a profit of " + bestResult + ". " + "Take the ship " + bestShip + ':<br>';
+    if (bestPlanet === game.starships[bestShip].position) {
+        for (let firstSell of bestFirstSells) {
+            answerString += `Sell ${firstSell.howmany} units of ${firstSell.name}. <br>`;
+        }
+    }
+    else {
+        for (let firstSell of bestFirstSells) {
+            answerString += `Sell ${firstSell.howmany} units of ${firstSell.name}. <br>`;
+        }
+        for (let buySell of bestBuySells) {
+            answerString += `Buy ${buySell.howmany} units of ${buySell.name}.<br>`;
+        }
+        answerString += `Move to ${bestPlanet}.<br>`;
+        for (let buySell of bestBuySells) {
+            answerString += `Sell ${buySell.howmany} units of ${buySell.name}.<br>`;
+        }
+        for (let sell of bestLastSells) {
+            answerString += `Sell ${sell.howmany} unitso of ${sell.name}.<br>`;
+        }
+    }
+    return answerString;
+}
 //# sourceMappingURL=objectsModel.js.map

@@ -22,12 +22,12 @@
         <header class="header">
             <nav class="navbar" id="navbar">
                 <div class="header-left header-item slide-in">
-                    <button class="header-left-button bold game-name-button slide-in" id="new-game-button">
+                    <button class="header-left-button bold game-name-button slide-in" id="game-button">
                         Space Dealer
                     </button>
                 </div>
                 <div class="header-left header-item slide-in">
-                    <button class="header-left-button" id="game-button" onclick="untoggleWindows()">
+                    <button class="header-left-button" id="new-game-button" onclick="untoggleWindows()">
                         Game
                     </button>
                 </div>
@@ -48,13 +48,20 @@
                         <i class="fas fa-boxes"></i> Items
                     </button>
                 </div>
+
+                <div class="header-left header-item">
+                    <button class="header-left-button items-button" id="help-button">
+                        Help
+                    </button>
+                </div>
+
+
+
                 <div class="header-right header-item">
                     <button class="header-right-button items-button" id="nickname-button">
                         Your nickname
                     </button>
                 </div>
-
-
                 <div class="header-right header-item">
                     <button class="header-right-button items-button" id="pause-button">
                         <i class="fas fa-pause"></i>
@@ -105,6 +112,9 @@
         <div class="change-window" id="one-planet-window">
             <iframe src="one_planet.html" class="change-frame" id="one-planet-frame"></iframe>
         </div>
+        <div class="change-window" id="help-window">
+            <iframe src="help.html" class="change-frame" id="help-frame"></iframe>
+        </div>
     
     
     
@@ -124,6 +134,35 @@
                         <input type="text" class="input-field" id="enter-nickname-field">
                     </p>
                 </div>
+                <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem">
+                    <p class="small-text-logo">Select map:</p>
+                </div>
+                <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem overlay-flexbox" id="map-box-container">
+                    <!-- <input type="radio" style="display: none;" id="map-box-1" name="map-selection" checked>
+                    <label for="map-box-1">
+                        <div class="map-box">
+                            <p>Name</p>
+                            <p class="map-box-description">Easy map with many profits.</p>
+                            <p class="map-box-description"><i class="fas fa-rocket"></i> 10, <i class="fas fa-globe"></i> 20, <i class="fas fa-boxes"></i> 5, ¢1990, <i class="fas fa-clock"></i> 200</p>
+                        </div>
+                    </label>
+                    <input type="radio" style="display: none;" id="map-box-2" name="map-selection">
+                    <label for="map-box-2">
+                        <div class="map-box">
+                            <p>QRVX Galaxy</p>
+                            <p class="map-box-description">Hard map with few profits.</p>
+                            <p class="map-box-description"><i class="fas fa-rocket"></i> 10, <i class="fas fa-globe"></i> 20, <i class="fas fa-boxes"></i> 5, ¢1990, <i class="fas fa-clock"></i> 200</p>
+                        </div>
+                    </label><input type="radio" style="display: none;" id="map-box-3" name="map-selection">
+                    <label for="map-box-3">
+                        <div class="map-box">
+                            <p>QRVX Galaxy</p>
+                            <p class="map-box-description">Hard map with few profits.</p>
+                            <p class="map-box-description"><i class="fas fa-rocket"></i> 10, <i class="fas fa-globe"></i> 20, <i class="fas fa-boxes"></i> 5, ¢1990, <i class="fas fa-clock"></i> 200</p>
+                        </div>
+                    </label> -->
+                </div>
+
                 <div class="overlay-pseudoform-elem enter-nickname-pseudoform-elem">
                     <p>
                         <button class="action-button small-special-button" id="submitNicknameButton"

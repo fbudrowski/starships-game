@@ -197,6 +197,16 @@ body{
 
 }
 
+.overlay-flexbox{
+    display: flex;
+}
+.overlay-flexbox > div {
+    background-color: var(--main-bg-color);
+    border-radius: 10pt;
+    margin: 15pt;
+    padding: 10pt;
+}
+
 .overlay-pseudoform{
     position: absolute;
     top: 50%;
@@ -232,6 +242,7 @@ body{
 
 div.enter-nickname-pseudoform-elem{
     flex-grow: 1;
+    margin-bottom: 3%;
 }
 
 .data-table-container{
@@ -478,4 +489,20 @@ td.in-table-breaker{
     20% { opacity: 0; -webkit-transform: translateY(-10%);}
     80% { opacity: 0.7;}
     100% {opacity: 1; -webkit-transform: translateY(0%);}
+}
+
+.map-box-description{
+    font-size: 0.3em;
+}
+.map-box {
+    background-color: var(--main-bg-color);
+    border-radius: 10pt;
+    margin: 15pt;
+    padding: 10pt;
+}
+
+#help-text{
+    color: var(--main-fg-color);
+    font-family: Play, sans-serif;
+    font-size: 2em;
 }

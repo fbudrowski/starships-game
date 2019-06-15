@@ -11,7 +11,7 @@ export function toggleWindow(window: HTMLElement) {
         for (i = 0; i < windows.length; i++) {
             (<HTMLElement>windows[i]).style.display = "none";
         }
-        if (window.classList.contains('slide-in-top')){
+        if (window.classList.contains('slide-in-top')) {
             window.classList.remove('slide-in-top');
         }
         window.classList.add('slide-in-top');
@@ -31,7 +31,7 @@ export function toggleWindowFromChild(window: HTMLElement) {
         for (i = 0; i < windows.length; i++) {
             (<HTMLElement>windows[i]).style.display = "none";
         }
-        if (window.classList.contains('slide-in-top')){
+        if (window.classList.contains('slide-in-top')) {
             window.classList.remove('slide-in-top');
         }
         window.classList.add('slide-in-top');
@@ -242,10 +242,10 @@ export function generateHallOfFameHtml() {
         <td>${hall.best_players[i].name}</td>
         <td>${hall.best_players[i].score}</td>
         <td></td>`;
-        innerHTML += `</tr>`
+        innerHTML += `</tr>`;
     }
-    if (elemCount < 10){
-        for (let i = elemCount; i < 10; i++){
+    if (elemCount < 10) {
+        for (let i = elemCount; i < 10; i++) {
             innerHTML += `<tr><td>NA</td><td></td><td></td></tr>`
         }
     }
@@ -253,29 +253,96 @@ export function generateHallOfFameHtml() {
     element.innerHTML = innerHTML;
 }
 
-export function generateThankYouOverlayHtml(name: string, result: number){
+export function setMapBoxContainer() {
+    let container = document.getElementById('map-box-container');
+    container.innerHTML = "";
+    let proxy = 'https://cors-anywhere.herokuapp.com/',
+        target = 'https://aqueous-lake-83440.herokuapp.com/states';
+
+    let content: string = "";
+    let fillContainer = (value: string) => {
+        // console.log("Fetched object" + value);
+        let obj = JSON.parse(value);
+        // console.log(obj);
+        for (let elem of obj) {
+            let name = elem.name;
+            let ships = elem.starship_count;
+            let planets = elem.planet_count;
+            let items = elem.items_count;
+            let money = elem.init_money;
+            let duration = elem.default_duration;
+            let description = elem.short_description;
+            container.innerHTML +=
+                `<input type="radio" class="map-box-checker" style="" id="map-box-${name}" name="map-selection" checked>
+            <label for="map-box-${name}">
+                <div class="map-box">
+                    <p>${name}</p>
+                    <p class="map-box-description">${description}</p>
+                    <p class="map-box-description">
+                        <i class="fas fa-rocket"></i> ${ships}, 
+                        <i class="fas fa-globe"></i> ${planets}, 
+                        <i class="fas fa-boxes"></i> ${items}, 
+                        ¢${money}, 
+                        <i class="fas fa-clock"></i> ${duration}</p>
+                </div>
+            </label>`;
+        }
+    }
+
+    fetch(proxy + target).then((receivedValue) => {
+        // console.log(receivedValue);
+        // console.log(receivedValue.body);
+        let bodyVal: ReadableStream = receivedValue.body;
+        let reader = bodyVal.getReader();
+        reader.read().then(function processText({ done, value }) {
+            if (done) {
+                // console.log("Stream complete");
+                fillContainer(content);
+                return;
+            }
+            let decoded = new TextDecoder("utf-8").decode(value);
+            // console.log("Got chunk of " + value.length + " with " + value + " of type "+ typeof(value));
+            // console.log("Decoded is  "+ decoded);
+
+            content += decoded;
+            return reader.read().then(processText);
+        })
+
+        // container.innerHTML +=
+        //     `<input type="radio" style="display: none;" id="map-box-${value}" name="map-selection" checked>
+        //     <label for="map-box-1">
+        //         <div class="map-box">
+        //             <p>Name</p>
+        //             <p class="map-box-description">Easy map with many profits.</p>
+        //             <p class="map-box-description"><i class="fas fa-rocket"></i> 10, <i class="fas fa-globe"></i> 20, <i class="fas fa-boxes"></i> 5, ¢1990, <i class="fas fa-clock"></i> 200</p>
+        //         </div>
+        //     </label>`;
+    }, (reason) => { });
+}
+
+export function generateThankYouOverlayHtml(name: string, result: number) {
     let congrats = document.getElementById('end-game-congrats-p');
-    congrats.innerHTML = `Dear ${name}, you scored ${result}!`;
+    congrats.innerHTML = `Dear ${name}, you scored ${result} !`;
     let overlay = document.getElementById('end-screen-overlay');
     overlay.style.display = "block";
 }
 
 
-export function drawGame(game : Game){
+export function drawGame(game: Game) {
     let outside = document.getElementById("main-field");
     let frameDocument = (<HTMLIFrameElement>outside).contentDocument;
     let map = frameDocument.getElementById("real-map");
     map.innerHTML = "";
-    for (let ship in game.starships){
+    for (let ship in game.starships) {
         let starship = game.starships[ship];
         let row = starship.target_x;
         let column = starship.target_y;
-        if (starship.total_travel_time){
+        if (starship.total_travel_time) {
             let timeFraction = starship.travel_remaining_time / starship.total_travel_time;
             row = starship.target_x + timeFraction * (starship.starting_x - starship.target_x);
             column = starship.target_y + timeFraction * (starship.starting_y - starship.target_y);
         }
-        
+
         map.innerHTML += `
         <p id="ship-minimap-wrapper-${ship}" 
         style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000; 
@@ -287,36 +354,36 @@ export function drawGame(game : Game){
             </svg>
         </p>`;
     }
-    for (let planetName in game.planets){
+    for (let planetName in game.planets) {
         let planet = game.planets[planetName];
         let row = planet.x;
         let column = planet.y;
-        
+
         map.innerHTML += `
         <p id="planet-minimap-wrapper-${planetName}" 
         style="top: ${row}%; left: ${column}%; width: 10px; height: 10px; margin: 0; position: absolute; z-index: 10000;">
             <svg height="10" width="10" style="top: 0%; left: 0%; z-index: 14000;" id="planet-minimap-${planetName}">
                 <circle cx="5" cy="5" r="4" stroke="black" id="planet-circle-${planetName}" stroke-width="0.5" fill="${
-                    Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" onclick="
+            Object.keys(planet.starships).length == 0 ? 'white' : 'yellow'}" onclick="
                     sessionStorage.setItem('currentPlanet', '${planetName}');
                     sessionStorage.setItem('changeNow', 'one-planet');"/>
             </svg>
         </p>`;
     }
 }
-export function setUpGame(initialStateString : string){
+export function setUpGame(initialStateString: string) {
 
     let initialState = JSON.parse(initialStateString);
-        generateModel(initialState);
-        let model = getGame();
-        
-        // alert("Generating game");
-        generateGameHtml(model);
-        // alert("Generating items");
-        generateItemsHtml(model);
-        // alert("Generating starships");
-        generateStarshipsHtml(model);
-        // alert("Generating planets");
-        generatePlanetsHtml(model);
-        // alert("Generated all");
+    generateModel(initialState);
+    let model = getGame();
+
+    // alert("Generating game");
+    generateGameHtml(model);
+    // alert("Generating items");
+    generateItemsHtml(model);
+    // alert("Generating starships");
+    generateStarshipsHtml(model);
+    // alert("Generating planets");
+    generatePlanetsHtml(model);
+    // alert("Generated all");
 }

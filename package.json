@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "commonjs": "0.0.1",
+    "fetch-ts": "0.0.1",
     "geckodriver": "^1.16.2"
   }
 }

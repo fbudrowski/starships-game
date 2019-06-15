@@ -1,3 +1,4 @@
+import { generateModel, getGame } from "./objectsModel";
 import { onClickStarship } from "./spaceshipsViews";
 import { onClickPlanet } from "./planetsViews";
 import { onClickItem } from "./itemsViews";
@@ -234,9 +235,70 @@ export function generateHallOfFameHtml() {
     }
     element.innerHTML = innerHTML;
 }
+export function setMapBoxContainer() {
+    let container = document.getElementById('map-box-container');
+    container.innerHTML = "";
+    let proxy = 'https://cors-anywhere.herokuapp.com/', target = 'https://aqueous-lake-83440.herokuapp.com/states';
+    let content = "";
+    let fillContainer = (value) => {
+        // console.log("Fetched object" + value);
+        let obj = JSON.parse(value);
+        // console.log(obj);
+        for (let elem of obj) {
+            let name = elem.name;
+            let ships = elem.starship_count;
+            let planets = elem.planet_count;
+            let items = elem.items_count;
+            let money = elem.init_money;
+            let duration = elem.default_duration;
+            let description = elem.short_description;
+            container.innerHTML +=
+                `<input type="radio" class="map-box-checker" style="" id="map-box-${name}" name="map-selection" checked>
+            <label for="map-box-${name}">
+                <div class="map-box">
+                    <p>${name}</p>
+                    <p class="map-box-description">${description}</p>
+                    <p class="map-box-description">
+                        <i class="fas fa-rocket"></i> ${ships}, 
+                        <i class="fas fa-globe"></i> ${planets}, 
+                        <i class="fas fa-boxes"></i> ${items}, 
+                        ¢${money}, 
+                        <i class="fas fa-clock"></i> ${duration}</p>
+                </div>
+            </label>`;
+        }
+    };
+    fetch(proxy + target).then((receivedValue) => {
+        // console.log(receivedValue);
+        // console.log(receivedValue.body);
+        let bodyVal = receivedValue.body;
+        let reader = bodyVal.getReader();
+        reader.read().then(function processText({ done, value }) {
+            if (done) {
+                // console.log("Stream complete");
+                fillContainer(content);
+                return;
+            }
+            let decoded = new TextDecoder("utf-8").decode(value);
+            // console.log("Got chunk of " + value.length + " with " + value + " of type "+ typeof(value));
+            // console.log("Decoded is  "+ decoded);
+            content += decoded;
+            return reader.read().then(processText);
+        });
+        // container.innerHTML +=
+        //     `<input type="radio" style="display: none;" id="map-box-${value}" name="map-selection" checked>
+        //     <label for="map-box-1">
+        //         <div class="map-box">
+        //             <p>Name</p>
+        //             <p class="map-box-description">Easy map with many profits.</p>
+        //             <p class="map-box-description"><i class="fas fa-rocket"></i> 10, <i class="fas fa-globe"></i> 20, <i class="fas fa-boxes"></i> 5, ¢1990, <i class="fas fa-clock"></i> 200</p>
+        //         </div>
+        //     </label>`;
+    }, (reason) => { });
+}
 export function generateThankYouOverlayHtml(name, result) {
     let congrats = document.getElementById('end-game-congrats-p');
-    congrats.innerHTML = `Dear ${name}, you scored ${result}!`;
+    congrats.innerHTML = `Dear ${name}, you scored ${result} !`;
     let overlay = document.getElementById('end-screen-overlay');
     overlay.style.display = "block";
 }
@@ -279,5 +341,19 @@ export function drawGame(game) {
             </svg>
         </p>`;
     }
+}
+export function setUpGame(initialStateString) {
+    let initialState = JSON.parse(initialStateString);
+    generateModel(initialState);
+    let model = getGame();
+    // alert("Generating game");
+    generateGameHtml(model);
+    // alert("Generating items");
+    generateItemsHtml(model);
+    // alert("Generating starships");
+    generateStarshipsHtml(model);
+    // alert("Generating planets");
+    generatePlanetsHtml(model);
+    // alert("Generated all");
 }
 //# sourceMappingURL=windowControllers.js.map

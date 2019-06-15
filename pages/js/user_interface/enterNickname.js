@@ -1,19 +1,51 @@
 import { getGame, startGame, returnGame } from "./objectsModel";
-import { generateGameHtml, generateItemsHtml, generateStarshipsHtml, generatePlanetsHtml } from "./windowControllers";
-export function submitNickname() {
+import { generateGameHtml, generateItemsHtml, generateStarshipsHtml, generatePlanetsHtml, setUpGame } from "./windowControllers";
+export function submitNicknameAndMap() {
     document.getElementById('navbar').classList.add('slide-in-left');
     document.getElementById("enter-nickname-overlay").style.display = "none";
     let nickname = document.getElementById("enter-nickname-field").value;
     // alert("Before: " + (document.getElementById("nickname-button") as HTMLButtonElement).innerText);
+    let maps = document.getElementsByClassName('map-box-checker');
+    let mapName = '';
+    for (let mapId in maps) {
+        let map = maps[mapId];
+        if (map['checked']) {
+            let mapNameWithTitle = map.id;
+            mapName = mapNameWithTitle.slice(8);
+            // ("Map name " + mapNameWithTitle);
+            // console.log("Finally map " + mapName);
+        }
+    }
+    // console.log(mapName);
     document.getElementById("nickname-button").innerText = nickname;
     // alert("Your name is " + name);
     sessionStorage.setItem('nickname', nickname);
     sessionStorage.setItem('gameover', "no");
     localStorage.setItem('gameover', "no");
-    startGame();
+    let fileName = mapName + '.json';
+    let proxy = 'https://cors-anywhere.herokuapp.com/', target = 'https://aqueous-lake-83440.herokuapp.com/states/' + fileName;
+    // console.log("Target: " + target);
+    let initialStateStringNew = "";
+    fetch(proxy + target).then((receivedValue) => {
+        let bodyVal = receivedValue.body;
+        let reader = bodyVal.getReader();
+        reader.read().then(function processText({ done, value }) {
+            if (done) {
+                // console.log("Received data");
+                // console.log(initialStateStringNew);
+                setUpGame(initialStateStringNew);
+                startGame();
+                return;
+            }
+            let decoded = new TextDecoder("utf-8").decode(value);
+            initialStateStringNew += decoded;
+            return reader.read().then(processText);
+        });
+    });
+    // startGame();
 }
 export function requestNickname() {
-    // sessionStorage.setItem('gameover', 'yes');
+    // localStorage.setItem('gameover', 'yes');
     if (localStorage.getItem('gameover') === "no") {
         let nickname = sessionStorage.getItem('nickname');
         document.getElementById("nickname-button").innerText = nickname;
